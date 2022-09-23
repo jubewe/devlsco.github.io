@@ -17,12 +17,17 @@
 }
 
 * {
-    vertical-align: middle !important;
+    vertical-align: middle;
+}
+
+custom_h {
+    align-items: center;
+    vertical-align: baseline;
 }
 
 body {
     user-select: none;
-    color: rgb(255, 255, 255);
+    color: #ffffff;
     background-color:#202020;
     animation: color 3s infinite;
     font-family: 'Lato', sans-serif;
@@ -45,18 +50,21 @@ main {
 }
 
 main div.line {
-    background-color: rgb(43, 43, 43);
+    display: block;
+    background-color: #2b2b2b;
     border-radius: 10px;
-    width: 70%;
-    height: 70%;
+    /* width: 70%; */
+    /* height: 70%; */
     padding: 10px;
     margin-right: 20%;
     margin-top: 10px;
 }
 
-main a {
+a {
+    display: inline;
     color: #15a3a5;
     text-decoration: none;
+    vertical-align: unset;
 }
 
 main div img.media {
@@ -65,13 +73,13 @@ main div img.media {
 }
 
 main div img.media:hover {
-    background-color: rgba(60, 60, 60, 0.534);
+    background-color: #3c3c3c88;
     border-radius: 10px;
     transform: scale(1.2);
 }
 
 main img.emote {
-    width: 27;
+    width: 27px;
     height: 27px;
     padding-right: 5px;
 }
@@ -90,7 +98,7 @@ main div img.logo {
 }
 
 main div i.followers {
-    color: rgb(221, 241, 241);
+    color: #ddf1f1;
     float: right;
 }
 
@@ -98,14 +106,26 @@ main div.modlookup table {
     width: 400px;
 }
 
-main div.main {
+main table.tr {
+    vertical-align: middle;
+}
+
+main div {
     margin: 15px;
 }
 
-main div.modlookup-channel {
-    margin-bottom: 15px;
+.blue {
+    color: #15a3a5;
 }
 
-blue {
-    color: #15a3a5;
+.il-start-spacer {
+    display: inline-block;
+    width: 50px;
+    height: 27px;
+    /* height: 25px; */
+    /* float: left; */
+}
+
+.sp {
+    line-height: 27px;
 }

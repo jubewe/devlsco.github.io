@@ -12,15 +12,15 @@ function format(number) {
 fetch("https://modlookup.3v.fi/api/user-totals/lsco").then(response => response.json()).then(data => {
     modlookup.innerHTML = 
     `
-    <div class="modlookup main">
+    <div class="modlookup">
         <table>
             <tr>
-                <td class="td">Follow total: <blue>${format(data.follows)}</blue></td>
-                <td class="td">Views total: <blue>${format(data.views)}</blue></td>
+                <td>Follow total: <a>${format(data.follows)}</a></td>
+                <td>Views total: <a>${format(data.views)}</a></td>
             </tr>
             <tr>
-                <td class="td">Channels: <blue>${format(data.total)}</blue></td>
-                <td class="td">Partners: <blue>${format(data.partners)}</blue></td>
+                <td>Channels: <a>${format(data.total)}</a></td>
+                <td>Partners: <a>${format(data.partners)}</a></td>
             </tr>
         </table>
     </div>
@@ -66,15 +66,15 @@ fetch("https://modlookup.3v.fi/api/user-v3/lsco").then(response => response.json
                 }
                 modChannels.innerHTML += 
                 `
-                <div class="line modlookup-channel">
-                <img class="logo" src="${channel.logo}">
-                ${badges}
-                <a style="color: ${channel.chatColor ? channel.chatColor : "#123456"};" href="https://www.twitch.tv/${encodeURIComponent(channel.login)}/" target="_blank" rel="noopener noreferrer">
-                ${channel.displayName ? channel.displayName : channel.login}
-                </a>
-                <i class="followers"> ~${format(channel.followers)}</i>
-                ${islive}
-                </div>
+                    <div class="line">
+                        <img class="logo" src="${channel.logo}">
+                        ${badges}
+                        <a style="color: ${channel.chatColor ? channel.chatColor : "#123456"};" href="https://www.twitch.tv/${encodeURIComponent(channel.login)}/" target="_blank" rel="noopener noreferrer">
+                        ${channel.displayName ? channel.displayName : channel.login}
+                        </a>
+                        <i class="followers"> ~${format(channel.followers)}</i>
+                        ${islive}
+                    </div>
                 `;
             }
         }
