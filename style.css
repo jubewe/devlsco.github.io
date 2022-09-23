@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap');
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #1d1e20;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #1d1e20;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #1d1e20;
+}
+
+* {
+    vertical-align: middle !important;
+}
+
+body {
+    user-select: none;
+    color: rgb(255, 255, 255);
+    background-color:#202020;
+    animation: color 3s infinite;
+    font-family: 'Lato', sans-serif;
+}
+
+header {
+    text-align: center;
+    margin-top: 10px; 
+}
+
+header img.home {
+    width: 100px;
+    height: 100px;
+    border-radius: 20px;
+}
+
+main {
+    margin-left: 6%;
+    margin-top: 1%;
+}
+
+main div.line {
+    background-color: rgb(43, 43, 43);
+    border-radius: 10px;
+    width: 70%;
+    height: 70%;
+    padding: 10px;
+    margin-right: 20%;
+    margin-top: 10px;
+}
+
+main a {
+    color: #15a3a5;
+    text-decoration: none;
+}
+
+main div img.media {
+    padding: 10px;
+    margin: 15px;
+}
+
+main div img.media:hover {
+    background-color: rgba(60, 60, 60, 0.534);
+    border-radius: 10px;
+    transform: scale(1.2);
+}
+
+main img.emote {
+    width: 27;
+    height: 27px;
+    padding-right: 5px;
+}
+
+main div a.game {
+    color: #FA6E02;
+}
+
+main div img.logo {
+    border-radius: 25px;
+    width: 28px;
+    height: 28px;
+    position: relative; 
+    margin: auto;
+    right: 4px;
+}
+
+main div i.followers {
+    color: rgb(221, 241, 241);
+    float: right;
+}
+
+main div.modlookup table {
+    width: 400px;
+}
+
+main div {
+    margin: 15px;
+}
+
+blue {
+    color: #15a3a5;
+}
