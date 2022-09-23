@@ -45,16 +45,15 @@ header img.home {
 }
 
 main {
-    margin-left: 3%;
-    margin-right: 3%;
+    margin-left: 5%;
     margin-top: 1%;
+    margin-right: 5%;
 }
 
 main div.line {
     display: block;
     background-color: #2b2b2b;
     border-radius: 15px;
-    width: 90%;
     padding: 10px;
     /* margin-right: 20%; */
     margin-top: 10px;
@@ -79,30 +78,24 @@ main div img.media:hover {
 }
 
 main img.emote {
-    width: 27px;
-    height: 27px;
+    width: 28px;
 }
 
-main div.game {
-    display: inline-block;
-    vertical-align: baseline;
-}
-
-main div.game a {
+main div a.game {
     color: #FA6E02;
 }
 
 main div img.logo {
     border-radius: 25px;
-    width: 28px;
-    height: 28px;
-    position: relative; 
-    margin: auto;
-    right: 4px;
+    width: 30px;
+}
+
+main div img.badge {
+    border-radius: 4px;
+    width: 18px;
 }
 
 main div i.followers {
-    color: #ddf1f1;
     float: right;
 }
 
@@ -110,27 +103,25 @@ main div.modlookup table {
     width: 400px;
 }
 
-main div.modlookup {
-    vertical-align: baseline;
+main div.main {
+    margin-left: 15px;
 }
 
-main table.tr {
-    vertical-align: middle;
-    text-align: center;
-}
-
-main div {
-    margin: 15px;
-}
-
-.blue {
-    color: #15a3a5;
-}
-
-.il-start-spacer {
+.spacer {
     display: inline-block;
-    width: 50px;
+    width: 40px;
     height: 27px;
+}
+
+.fill-space {
+    display: inline-block;
+    padding: 0px;
+    width: 100%;
+    max-height: 28px;
+}
+
+.fill-space-text {
+    width: 100%;
 }
 
 .sp {
@@ -141,14 +132,6 @@ main div {
     color: currentColor
 }
 
-.lt-1 {
-    width: 100%;
-}
-
-.il-fill-space {
-    display: inline-block;
-    width: 100%
-}
 
 .tr_1 {
     padding: 0px;
@@ -161,4 +144,10 @@ main div {
 .th_out {
     display: block;
     width: 50px;
+}
+
+.spacer {
+    display: inline-block;
+    width: 40px;
+    height: 27px;
 }

@@ -1,3 +1,5 @@
+// Thanks to @Jubewe for some help, ideas and tipps! (https://github.com/jubewe/)
+
 const follows = document.getElementById("follows");
 const views = document.getElementById("views");
 const total = document.getElementById("total");
@@ -15,7 +17,7 @@ fetch("https://modlookup.3v.fi/api/user-totals/lsco").then(response => response.
     <div class="modlookup">
         <table>
             <tr>
-                <td>Follow total: <a>${format(data.follows)}</a></td>
+                <td>Followers total: <a>${format(data.follows)}</a></td>
                 <td>Views total: <a>${format(data.views)}</a></td>
             </tr>
             <tr>
@@ -31,7 +33,7 @@ fetch("https://modlookup.3v.fi/api/user-v3/lsco").then(response => response.json
     let channels = data.channels.map(res => res);
     let channelsList = "?login=lsco";
     for (const channel of channels) {
-        if (channel.followers > 10000) {
+        if (channel.followers > 1) {
             channelsList += `%2C${channel.name}`;
         }
     }
@@ -39,30 +41,30 @@ fetch("https://modlookup.3v.fi/api/user-v3/lsco").then(response => response.json
         let data = request.sort((x, y) => Number(y.followers) - Number(x.followers));
         for (const channel of data) {
             if (channel.login && channel.login !== "lsco") {
-                let islive = ``;
-                let badges = ``;
+                let islive = "";
+                let badges = "";
                 if (channel.stream) {
                     islive = 
                     `
                         <br>
                         <div class="game">
                         <text>LIVE:</text>
-                        <i><a href="https://www.twitch.tv/directory/game/${encodeURI(channel.stream.game.displayName)}/" target="_blank" rel="noopener noreferrer">${channel.stream.game.displayName}</a></i>
-                        <i>~</i>
-                        <i style="color: ${channel.chatColor ? channel.chatColor : "#123456"};">
+                        <a href="https://www.twitch.tv/directory/game/${encodeURI(channel.stream.game.displayName)}/" target="_blank" rel="noopener noreferrer">${channel.stream.game.displayName}</a>
+                        <text>~</text>
+                        <text style="color: ${channel.chatColor ? channel.chatColor : "#123456"};">
                         ${format(channel.stream.viewersCount)}
-                        </i>
-                        <i>~</i>
-                        <i>
+                        </text>
+                        <text>~</text>
+                        <text>
                         ${channel.stream.title}
-                        </i>
+                        </text>
                         </div>
                     `;
                 }
                 if (channel.roles.isPartner) {
-                    badges =
+                    badges +=
                     `
-                        <img style="vertical-align: middle; border-radius: 5px;" src="https://static-cdn.jtvnw.net/badges/v1/d12a2e27-16f6-41d0-ab77-b780518f00a3/3" width="19" height="19">
+                        <img class="badge" src="https://static-cdn.jtvnw.net/badges/v1/d12a2e27-16f6-41d0-ab77-b780518f00a3/3">
                     `
                 }
                 modChannels.innerHTML += 
