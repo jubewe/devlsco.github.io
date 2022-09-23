@@ -81,7 +81,7 @@ main img.emote {
 }
 
 main div a.game {
-    color: #FA6E02;
+    color: #000;
 }
 
 main div img.logo {
@@ -106,8 +106,12 @@ main div.main {
     margin-left: 15px;
 }
 
-.spacer {
+main div .spacer {
     display: inline-block;
     width: 40px;
     height: 27px;
+}
+
+main div .space {
+    width: 100%;
 }
