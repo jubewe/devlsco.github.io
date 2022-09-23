@@ -33,7 +33,7 @@ fetch("https://modlookup.3v.fi/api/user-v3/lsco").then(response => response.json
     let channels = data.channels.map(res => res);
     let channelsList = "?login=lsco";
     for (const channel of channels) {
-        if (channel.followers > 1) {
+        if (channel.followers > 10000) {
             channelsList += `%2C${channel.name}`;
         }
     }
