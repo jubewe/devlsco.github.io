@@ -44,10 +44,10 @@ fetch("https://modlookup.3v.fi/api/user-v3/lsco").then(response => response.json
                 if (channel.stream) {
                     islive = 
                     `
-                        <br><br>
-                        <a class="game" href="https://www.twitch.tv/directory/game/${encodeURI(channel.stream.game.displayName)}/" target="_blank" rel="noopener noreferrer">
-                        ${channel.stream.game.displayName}
-                        </a>
+                        <br>
+                        <div class="game">
+                        <text>LIVE:</text>
+                        <i><a href="https://www.twitch.tv/directory/game/${encodeURI(channel.stream.game.displayName)}/" target="_blank" rel="noopener noreferrer">${channel.stream.game.displayName}</a></i>
                         <i>~</i>
                         <i style="color: ${channel.chatColor ? channel.chatColor : "#123456"};">
                         ${format(channel.stream.viewersCount)}
@@ -56,6 +56,7 @@ fetch("https://modlookup.3v.fi/api/user-v3/lsco").then(response => response.json
                         <i>
                         ${channel.stream.title}
                         </i>
+                        </div>
                     `;
                 }
                 if (channel.roles.isPartner) {

@@ -20,7 +20,7 @@
     vertical-align: middle;
 }
 
-custom_h {
+text {
     align-items: center;
     vertical-align: baseline;
 }
@@ -45,18 +45,18 @@ header img.home {
 }
 
 main {
-    margin-left: 6%;
+    margin-left: 3%;
+    margin-right: 3%;
     margin-top: 1%;
 }
 
 main div.line {
     display: block;
     background-color: #2b2b2b;
-    border-radius: 10px;
-    /* width: 70%; */
-    /* height: 70%; */
+    border-radius: 15px;
+    width: 90%;
     padding: 10px;
-    margin-right: 20%;
+    /* margin-right: 20%; */
     margin-top: 10px;
 }
 
@@ -81,10 +81,14 @@ main div img.media:hover {
 main img.emote {
     width: 27px;
     height: 27px;
-    padding-right: 5px;
 }
 
-main div a.game {
+main div.game {
+    display: inline-block;
+    vertical-align: baseline;
+}
+
+main div.game a {
     color: #FA6E02;
 }
 
@@ -106,8 +110,13 @@ main div.modlookup table {
     width: 400px;
 }
 
+main div.modlookup {
+    vertical-align: baseline;
+}
+
 main table.tr {
     vertical-align: middle;
+    text-align: center;
 }
 
 main div {
@@ -122,10 +131,34 @@ main div {
     display: inline-block;
     width: 50px;
     height: 27px;
-    /* height: 25px; */
-    /* float: left; */
 }
 
 .sp {
     line-height: 27px;
+}
+
+.a_nocolor {
+    color: currentColor
+}
+
+.lt-1 {
+    width: 100%;
+}
+
+.il-fill-space {
+    display: inline-block;
+    width: 100%
+}
+
+.tr_1 {
+    padding: 0px;
+}
+
+.th_in {
+    display: table-cell;
+}
+
+.th_out {
+    display: block;
+    width: 50px;
 }
