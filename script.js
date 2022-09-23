@@ -9,7 +9,7 @@ function format(number) {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 }
 
-fetch("https://modlookup.3v.fi/api/user-totals/zetrox16").then(response => response.json()).then(data => {
+fetch("https://modlookup.3v.fi/api/user-totals/lsco").then(response => response.json()).then(data => {
     modlookup.innerHTML = 
     `
     <div class="modlookup">
@@ -27,9 +27,9 @@ fetch("https://modlookup.3v.fi/api/user-totals/zetrox16").then(response => respo
     `;
 });
 
-fetch("https://modlookup.3v.fi/api/user-v3/zetrox16").then(response => response.json()).then(data => {
+fetch("https://modlookup.3v.fi/api/user-v3/lsco").then(response => response.json()).then(data => {
     let channels = data.channels.map(res => res);
-    let channelsList = "?login=zetrox16";
+    let channelsList = "?login=lsco";
     for (const channel of channels) {
         if (channel.followers > 10000) {
             channelsList += `%2C${channel.name}`;
@@ -38,7 +38,7 @@ fetch("https://modlookup.3v.fi/api/user-v3/zetrox16").then(response => response.
     fetch(`https://api.ivr.fi/v2/twitch/user${channelsList}`).then(response => response.json()).then(request => {
         let data = request.sort((x, y) => Number(y.followers) - Number(x.followers));
         for (const channel of data) {
-            if (channel.login && channel.login !== "zetrox16") {
+            if (channel.login && channel.login !== "lsco") {
                 let islive = ``;
                 let badges = ``;
                 if (channel.stream) {
