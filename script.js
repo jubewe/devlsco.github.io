@@ -15,12 +15,12 @@ fetch("https://modlookup.3v.fi/api/user-totals/lsco").then(response => response.
     <div class="modlookup main">
         <table>
             <tr>
-                <td class="td">Follow total: <blue>${format(data.follows)}</blue></td>
-                <td class="td">Views total: <blue>${format(data.views)}</blue></td>
+                <td>Follow total: <a>${format(data.follows)}</a></td>
+                <td>Views total: <a>${format(data.views)}</a></td>
             </tr>
             <tr>
-                <td class="td">Channels: <blue>${format(data.total)}</blue></td>
-                <td class="td">Partners: <blue>${format(data.partners)}</blue></td>
+                <td>Channels: <a>${format(data.total)}</a></td>
+                <td>Partners: <a>${format(data.partners)}</a></td>
             </tr>
         </table>
     </div>
@@ -39,8 +39,8 @@ fetch("https://modlookup.3v.fi/api/user-v3/lsco").then(response => response.json
         let data = request.sort((x, y) => Number(y.followers) - Number(x.followers));
         for (const channel of data) {
             if (channel.login && channel.login !== "lsco") {
-                let islive = ``;
-                let badges = ``;
+                let islive = "";
+                let badges = "";
                 if (channel.stream) {
                     islive = 
                     `
@@ -59,22 +59,22 @@ fetch("https://modlookup.3v.fi/api/user-v3/lsco").then(response => response.json
                     `;
                 }
                 if (channel.roles.isPartner) {
-                    badges =
+                    badges +=
                     `
-                        <img style="vertical-align: middle; border-radius: 5px;" src="https://static-cdn.jtvnw.net/badges/v1/d12a2e27-16f6-41d0-ab77-b780518f00a3/3" width="19" height="19">
+                        <img class="badge" src="https://static-cdn.jtvnw.net/badges/v1/d12a2e27-16f6-41d0-ab77-b780518f00a3/3">
                     `
                 }
                 modChannels.innerHTML += 
                 `
-                <div class="line modlookup-channel">
-                <img class="logo" src="${channel.logo}">
-                ${badges}
-                <a style="color: ${channel.chatColor ? channel.chatColor : "#123456"};" href="https://www.twitch.tv/${encodeURIComponent(channel.login)}/" target="_blank" rel="noopener noreferrer">
-                ${channel.displayName ? channel.displayName : channel.login}
-                </a>
-                <i class="followers"> ~${format(channel.followers)}</i>
-                ${islive}
-                </div>
+                    <div class="line">
+                        <img class="logo" src="${channel.logo}">
+                        ${badges}
+                        <a style="color: ${channel.chatColor ? channel.chatColor : "#123456"};" href="https://www.twitch.tv/${encodeURIComponent(channel.login)}/" target="_blank" rel="noopener noreferrer">
+                        ${channel.displayName ? channel.displayName : channel.login}
+                        </a>
+                        <i class="followers"> ~${format(channel.followers)}</i>
+                        ${islive}
+                    </div>
                 `;
             }
         }

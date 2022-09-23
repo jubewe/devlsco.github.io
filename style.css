@@ -17,12 +17,17 @@
 }
 
 * {
-    vertical-align: middle !important;
+    vertical-align: middle;
+}
+
+text {
+    align-items: center;
+    vertical-align: baseline;
 }
 
 body {
     user-select: none;
-    color: rgb(255, 255, 255);
+    color: #ffffff;
     background-color:#202020;
     animation: color 3s infinite;
     font-family: 'Lato', sans-serif;
@@ -45,18 +50,19 @@ main {
 }
 
 main div.line {
-    background-color: rgb(43, 43, 43);
+    display: block;
+    background-color: #2b2b2b;
     border-radius: 10px;
-    width: 70%;
-    height: 70%;
     padding: 10px;
     margin-right: 20%;
     margin-top: 10px;
 }
 
-main a {
+a {
+    display: inline;
     color: #15a3a5;
     text-decoration: none;
+    vertical-align: unset;
 }
 
 main div img.media {
@@ -65,15 +71,13 @@ main div img.media {
 }
 
 main div img.media:hover {
-    background-color: rgba(60, 60, 60, 0.534);
+    background-color: #3c3c3c88;
     border-radius: 10px;
     transform: scale(1.2);
 }
 
 main img.emote {
-    width: 27;
-    height: 27px;
-    padding-right: 5px;
+    width: 28px;
 }
 
 main div a.game {
@@ -82,15 +86,15 @@ main div a.game {
 
 main div img.logo {
     border-radius: 25px;
-    width: 28px;
-    height: 28px;
-    position: relative; 
-    margin: auto;
-    right: 4px;
+    width: 30px;
+}
+
+main div img.badge {
+    border-radius: 4px;
+    width: 18px;
 }
 
 main div i.followers {
-    color: rgb(221, 241, 241);
     float: right;
 }
 
@@ -99,13 +103,11 @@ main div.modlookup table {
 }
 
 main div.main {
-    margin: 15px;
+    margin-left: 15px;
 }
 
-main div.modlookup-channel {
-    margin-bottom: 15px;
-}
-
-blue {
-    color: #15a3a5;
+.spacer {
+    display: inline-block;
+    width: 40px;
+    height: 27px;
 }
