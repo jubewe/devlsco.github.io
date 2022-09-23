@@ -98,8 +98,12 @@ main div.modlookup table {
     width: 400px;
 }
 
-main div {
+main div.main {
     margin: 15px;
+}
+
+main div.modlookup-channel {
+    margin-bottom: 15px;
 }
 
 blue {

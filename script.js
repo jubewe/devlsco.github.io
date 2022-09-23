@@ -12,7 +12,7 @@ function format(number) {
 fetch("https://modlookup.3v.fi/api/user-totals/lsco").then(response => response.json()).then(data => {
     modlookup.innerHTML = 
     `
-    <div class="modlookup">
+    <div class="modlookup main">
         <table>
             <tr>
                 <td class="td">Follow total: <blue>${format(data.follows)}</blue></td>
@@ -66,15 +66,15 @@ fetch("https://modlookup.3v.fi/api/user-v3/lsco").then(response => response.json
                 }
                 modChannels.innerHTML += 
                 `
-                    <div class="line">
-                        <img class="logo" src="${channel.logo}">
-                        ${badges}
-                        <a style="color: ${channel.chatColor ? channel.chatColor : "#123456"};" href="https://www.twitch.tv/${encodeURIComponent(channel.login)}/" target="_blank" rel="noopener noreferrer">
-                        ${channel.displayName ? channel.displayName : channel.login}
-                        </a>
-                        <i class="followers"> ~${format(channel.followers)}</i>
-                        ${islive}
-                    </div>
+                <div class="line modlookup-channel">
+                <img class="logo" src="${channel.logo}">
+                ${badges}
+                <a style="color: ${channel.chatColor ? channel.chatColor : "#123456"};" href="https://www.twitch.tv/${encodeURIComponent(channel.login)}/" target="_blank" rel="noopener noreferrer">
+                ${channel.displayName ? channel.displayName : channel.login}
+                </a>
+                <i class="followers"> ~${format(channel.followers)}</i>
+                ${islive}
+                </div>
                 `;
             }
         }
