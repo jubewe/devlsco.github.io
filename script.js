@@ -1,3 +1,5 @@
+// Thanks to @Jubewe for some help, ideas and tipps! (https://github.com/jubewe/)
+
 const follows = document.getElementById("follows");
 const views = document.getElementById("views");
 const total = document.getElementById("total");
