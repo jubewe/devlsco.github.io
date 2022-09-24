@@ -167,9 +167,9 @@ main div.main {
     width: 50px;
 }
 
-main td.td_1 {
-    /* width: 10% */
-}
+/* main td.td_1 {
+    width: 10%
+} */
 
 main td.td_2 {
     width: 50%;
@@ -188,4 +188,55 @@ main td.td_3 {
 .spacer_ {
     display: inline-block;
     width: 3px;
+}
+
+.mc_toggle-on {
+    background-color: green;
+    transform: translateX(35px);
+    transition: transform 250ms;
+}
+
+.mc_toggle-off {
+    background-color: #6e4c4c;
+    transform: translateX(none);
+    transition: transform 250ms;
+}
+
+
+
+#mc_toggle-container {
+    display: flex; 
+    border-radius: 10px; 
+    background-color: #6e4c4c; 
+    border: solid; 
+    width: 55px; 
+    height: 25px; 
+    border-width: 2.5px; 
+    align-items: center; 
+    cursor: pointer;
+}
+
+#mc_toggle-switch {
+    width: 10px; 
+    height: 15px; 
+    background-color: #48838a; 
+    border: solid; 
+    border-radius: 6px; 
+    border-width: 2.5px; 
+    display: flexbox; 
+    margin-left: 2px; 
+    margin-right: 2px;
+}
+
+.refresh_icon {
+    display: inline;
+    position: absolute;
+    float: right;
+    margin-left: 15px;
+}
+
+.refresh_icon:hover {
+    height: 25px;
+    transform: rotate(360deg);
+    transition: transform 1s
 }
