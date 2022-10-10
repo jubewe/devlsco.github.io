@@ -31,8 +31,8 @@
                 <table>
                     <tr>
                         <td>
-                            <div class="emote-area">
-                                <div class="emote">
+                            <div class="image-area">
+                                <div class="image">
                                     <img src="https://static-cdn.jtvnw.net/emoticons/v2/81274/default/dark/2.0"
                                         alt="VoHiYo">
                                 </div>
@@ -52,8 +52,8 @@
                 <table>
                     <tr>
                         <td>
-                            <div class="emote-area">
-                                <div class="emote">
+                            <div class="image-area">
+                                <div class="image">
                                     <img src="https://cdn.7tv.app/emote/623a1a28fbedd5baeb4183e4/2x" alt="HACKERDANK">
                                 </div>
                             </div>
@@ -77,8 +77,8 @@
                 <table>
                     <tr>
                         <td>
-                            <div class="emote-area">
-                                <div class="emote">
+                            <div class="image-area">
+                                <div class="image">
                                     <img src="./img/chatty.png" alt="Chatty">
                                 </div>
                             </div>
@@ -97,8 +97,8 @@
                 <table>
                     <tr>
                         <td>
-                            <div class="emote-area">
-                                <div class="emote">
+                            <div class="image-area">
+                                <div class="image">
                                     <img src="./img/Chatterino.png" alt="Chatterino">
                                 </div>
                             </div>
@@ -118,8 +118,8 @@
                 <table>
                     <tr>
                         <td>
-                            <div class="emote-area">
-                                <div class="emote">
+                            <div class="image-area">
+                                <div class="image">
                                     <img src="./img/firefox-developer.png" alt="Chatterino">
                                 </div>
                             </div>
@@ -143,34 +143,35 @@
             <div id="modlookup">
                 <progress></progress>
             </div>
-            <div class="title">
-                <div class="text">
-                    Streamer where I moderate
-                </div>
+        </div>
+        <div class="title">
+            <div class="text">
+                Streamer where I moderate
             </div>
-            <div class="front">
-                <div id="modChannels">
-                    <progress></progress>
-                </div>
+        </div>
+        <div class="front">
+            <div id="modChannels">
+                <progress></progress>
             </div>
-            <div class="title">
-                <div class="text">
-                    Social Media
-                </div>
+        </div>
+        <div class="title">
+            <div class="text">
+                Social Media
             </div>
-            <div class="front">
-                <div class="media">
-                    <a href="https://github.com/devLsCo/" target="_blank" rel="noopener noreferrer">
-                        <img src="./img/github.png">
-                    </a>
-                    <a href="https://www.twitch.tv/LsCo/" target="_blank" rel="noopener noreferrer">
-                        <img src="./img/twitch.png">
-                    </a>
-                    <a href="https://www.twitter.com/infoLsCo" target="_blank" rel="noopener noreferrer">
-                        <img src="./img/twitter.png">
-                    </a>
-                </div>
+        </div>
+        <div class="front">
+            <div class="media">
+                <a href="https://github.com/devLsCo/" target="_blank" rel="noopener noreferrer">
+                    <img src="./img/github.png">
+                </a>
+                <a href="https://www.twitch.tv/LsCo/" target="_blank" rel="noopener noreferrer">
+                    <img src="./img/twitch.png">
+                </a>
+                <a href="https://www.twitter.com/infoLsCo" target="_blank" rel="noopener noreferrer">
+                    <img src="./img/twitter.png">
+                </a>
             </div>
+        </div>
     </main>
 </body>
 
@@ -178,7 +179,7 @@
     const modlookup = document.getElementById("modlookup");
     const modlookupChannels = document.getElementById("modlookupChannels");
 
-    const channelName = "lsco";
+    const channelName = "zetrox16";
     const minChannelFollowers = 5000;
 
     window.onload = ModLookUp(), ModChannels();
@@ -210,7 +211,7 @@
                     const newData = request.sort((x, y) => Number(y.followers) - Number(x.followers));
                     for (const channel of newData) {
                         if (channel.login && channel.login !== channelName) {
-                            modChannels.innerHTML += `<div class="line"><table><tr><td><div class="spacer"><img class="logo" src="${channel.logo.replace("600x600", "300x300")}"></div></td><td class="space"><text><a style="color: ${channel.chatColor ? channel.chatColor : "#FFF"};" href="https://www.twitch.tv/${encodeURIComponent(channel.login)}/" target="_blank" rel="noopener noreferrer">${channel.displayName ? channel.displayName : channel.login}</a><i class="followers"> ~${format(channel.followers)}</i></text></td></tr></table>${channel.stream ? `<br><a class="game" href="https://www.twitch.tv/directory/game/${encodeURI(channel.stream.game.displayName)}/" target="_blank" rel="noopener noreferrer">${channel.stream.game.displayName}</a><text class="margin">~</text><text style="color: #FFF;"><i>${format(channel.stream.viewersCount)}</i></text><text class="margin">~</text><text><i>${channel.stream.title}</i></text>` : ""}</div>`;
+                            modChannels.innerHTML += `<div class="line"><table><tr><td><div class="image-area"><div class="image"><img class="logo" src="${channel.logo.replace("600x600", "300x300")}" alt="${channel.login}"></div></div></td><td><div class="text"><a style="color: ${channel.chatColor ? channel.chatColor : "#FFF"};" href="https://www.twitch.tv/${encodeURIComponent(channel.login)}/" target="_blank" rel="noopener noreferrer">${channel.displayName ? channel.displayName : channel.login}</a></div></td><div class="followers">~${format(channel.followers)}</div></tr></table>${channel.stream ? `<br><table><tr><td><div class="text"><a class="game" href="https://www.twitch.tv/directory/game/${encodeURI(channel.stream.game.displayName)}/" target="_blank" rel="noopener noreferrer">${channel.stream.game.displayName}</a></div></td><td><div class="text">~${format(channel.stream.viewersCount)}~</div></td><td><div class="text">${channel.stream.title}</div></td></tr></table>` : ""}</div>`;
                         }
                     }
                 } else {
@@ -248,7 +249,6 @@
 
     * {
         vertical-align: middle;
-
         scroll-behavior: smooth;
         overflow-y: visible;
         scrollbar-width: thin;
@@ -269,8 +269,8 @@
     }
 
     header div.home_icon img {
-        width: 100px;
-        height: 100px;
+        width: 120px;
+        height: 120px;
         border-radius: 20px;
         margin-left: 6%;
         margin-top: 1%;
@@ -309,18 +309,18 @@
     }
 
     main div.media a img {
-        padding: 8px;
-        margin: 13px;
+        padding: 12px;
+        margin: 16px;
     }
 
     main div.media a img:hover {
         background-color: #3c3c3c88;
         border-radius: 10px;
-        transform: scale(1.2);
+        transform: scale(1.3);
     }
 
-    main div.emote img {
-        width: 28px;
+    main div.image img {
+        width: 30px;
     }
 
     main div a.game {
@@ -358,18 +358,15 @@
         }
     }
 
-    main div img.logo {
+    main div.image-area div.image .logo {
         border-radius: 25px;
         width: 30px;
     }
 
-    main div img.badge {
-        border-radius: 4px;
-        width: 18px;
-    }
-
-    main div i.followers {
+    main div.followers {
+        font-style: italic;
         float: right;
+        color: #009dff;
     }
 
     main div.modlookup table {
@@ -380,7 +377,7 @@
         margin-left: 15px;
     }
 
-    main div .emote-area {
+    main div .image-area {
         display: inline-block;
         width: 40px;
         height: 27px;
