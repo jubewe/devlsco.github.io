@@ -211,7 +211,7 @@
                     const newData = request.sort((x, y) => Number(y.followers) - Number(x.followers));
                     for (const channel of newData) {
                         if (channel.login && channel.login !== channelName) {
-                            modChannels.innerHTML += `<div class="line"><table><tr><td><div class="image-area"><div class="image"><img class="logo" src="${channel.logo.replace("600x600", "300x300")}" alt="${channel.login}"></div></div></td><td><div class="text"><a style="color: ${channel.chatColor ? channel.chatColor : "#FFF"};" href="https://www.twitch.tv/${encodeURIComponent(channel.login)}/" target="_blank" rel="noopener noreferrer">${channel.displayName ? channel.displayName : channel.login}</a></div></td><div class="followers">~${format(channel.followers)}</div></tr></table>${channel.stream ? `<br><table><tr><td><div class="text"><a class="game" href="https://www.twitch.tv/directory/game/${encodeURI(channel.stream.game.displayName)}/" target="_blank" rel="noopener noreferrer">${channel.stream.game.displayName}</a></div></td><td><div class="text">~${format(channel.stream.viewersCount)}~</div></td><td><div class="text">${channel.stream.title}</div></td></tr></table>` : ""}</div>`;
+                            modChannels.innerHTML += `<div class="line"><table><tr><td><div class="image-area"><div class="image"><img class="logo" src="${channel.logo.replace("600x600", "300x300")}" alt="${channel.login}"></div></div></td><td><div class="text"><a style="color: ${channel.chatColor ? channel.chatColor : "#FFF"};" href="https://www.twitch.tv/${encodeURIComponent(channel.login)}/" target="_blank" rel="noopener noreferrer">${channel.displayName ? channel.displayName : channel.login}</a></div></td><div class="followers">~${format(channel.followers)}</div></tr></table>${channel.stream ? `<br><table><tr><td><div class="text"><a class="game" href="https://www.twitch.tv/directory/game/${encodeURI(channel.stream.game.displayName)}/" target="_blank" rel="noopener noreferrer">${channel.stream.game.displayName}</a></div></td><td><div class="text margin">~${format(channel.stream.viewersCount)}~</div></td><td><div class="text">${channel.stream.title}</div></td></tr></table>` : ""}</div>`;
                         }
                     }
                 } else {
@@ -284,6 +284,7 @@
     main div.text {
         align-items: center;
         vertical-align: baseline;
+        width: 100%;
     }
 
     main div.title {
@@ -363,7 +364,7 @@
         width: 30px;
     }
 
-    main div.followers {
+    main div.line div.followers {
         font-style: italic;
         float: right;
         color: #009dff;
@@ -384,22 +385,7 @@
         margin-left: 15px;
     }
 
-    main div .space {
-        width: 100%;
-    }
-
-    .refresh_icon {
-        display: inline;
-        position: absolute;
-        float: right;
-        margin-left: 15px;
-    }
-
-    main div table tr.blur {
-        filter: blur(3px);
-    }
-
-    .margin {
+    main div.margin {
         margin-left: 10px;
         margin-right: 10px;
     }
