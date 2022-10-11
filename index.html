@@ -300,9 +300,37 @@
         padding: 10px;
         margin-right: 20%;
         margin-top: 10px;
+        animation: line 1s linear 0s infinite normal none;
     }
 
-    a, highlight {
+    @keyframes line {
+        0% {
+            transform: translate(0);
+        }
+
+        20% {
+            transform: translate(-2px, 2px);
+        }
+
+        40% {
+            transform: translate(-2px, -2px);
+        }
+
+        60% {
+            transform: translate(2px, 2px);
+        }
+
+        80% {
+            transform: translate(2px, -2px);
+        }
+
+        100% {
+            transform: translate(0);
+        }
+    }
+
+    a,
+    highlight {
         display: inline;
         color: #15a3a5;
         text-decoration: none;
@@ -325,10 +353,10 @@
     }
 
     main div a.game {
-        animation: rainbow 2s infinite;
+        animation: animation 1s infinite;
     }
 
-    @keyframes rainbow {
+    @keyframes animation {
 
         10% {
             color: #ff0000;
@@ -357,6 +385,7 @@
         70% {
             color: #5f06a7;
         }
+
     }
 
     main div.image-area div.image .logo {
