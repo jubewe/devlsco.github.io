@@ -156,8 +156,36 @@
         </div>
         <div class="title">
             <div class="text">
+                <a href="./projects" target="_blank" rel="noopener noreferrer">Projects</a>
+            </div>
+        </div>
+        <div class="front">
+            <div class="line">
+                <table>
+                    <tr>
+                        <td>
+                            <div class="image-area">
+                                <div class="image">
+                                    <img src="https://cdn.7tv.app/emote/60aee9d5361b0164e60d02c2/3x" alt="WICKED">
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="text">
+                                <a href="./projects/userinfo" target="_blank" rel="noopener noreferrer">Userinfo</a>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="title">
+            <div class="text">
                 Social Media
             </div>
+        </div>
+        <div class="viewersCount">
+            lol
         </div>
         <div class="front">
             <div class="media">
@@ -211,7 +239,7 @@
                     const newData = request.sort((x, y) => Number(y.followers) - Number(x.followers));
                     for (const channel of newData) {
                         if (channel.login && channel.login !== channelName) {
-                            modChannels.innerHTML += `<div class="line"><table><tr><td><div class="image-area"><div class="image"><img class="logo" src="${channel.logo.replace("600x600", "300x300")}" alt="${channel.login}"></div></div></td><td><div class="text"><a style="color: ${channel.chatColor ? channel.chatColor : "#FFF"};" href="https://www.twitch.tv/${encodeURIComponent(channel.login)}/" target="_blank" rel="noopener noreferrer">${channel.displayName ? channel.displayName : channel.login}</a></div></td><div class="followers">~${format(channel.followers)}</div></tr></table>${channel.stream ? `<br><table><tr><td><div class="text"><a class="game" href="https://www.twitch.tv/directory/game/${encodeURI(channel.stream.game.displayName)}/" target="_blank" rel="noopener noreferrer">${channel.stream.game.displayName}</a></div></td><td><div class="text margin">~${format(channel.stream.viewersCount)}~</div></td><td><div class="text">${channel.stream.title}</div></td></tr></table>` : ""}</div>`;
+                            modChannels.innerHTML += `<div class="line"><table><tr><td><div class="image-area"><div class="image"><img class="logo" src="${channel.logo.replace("600x600", "70x70")}" alt="${channel.login}"></div></div></td><td><div class="text"><a style="color: ${channel.chatColor ? channel.chatColor : "#FFF"};" href="https://www.twitch.tv/${encodeURIComponent(channel.login)}/" target="_blank" rel="noopener noreferrer">${channel.displayName ? channel.displayName : channel.login}</a></div></td><div class="followers">~${format(channel.followers)}</div></tr></table>${channel.stream ? `<br><table><tr><td><div class="text"><a class="game" href="https://www.twitch.tv/directory/game/${encodeURI(channel.stream.game.displayName)}/" target="_blank" rel="noopener noreferrer">${channel.stream.game.displayName}</a></div></td><td><div class="text margin">${format(channel.stream.viewersCount)}</div></td><td><div class="text">${channel.stream.title}</div></td></tr></table>` : ""}</div>`;
                         }
                     }
                 } else {
@@ -327,6 +355,16 @@
 
     main div a.game {
         animation: animation 2s infinite;
+        color: #15a3a5;
+    }
+
+    main div.rainbow {
+        animation: animation 2s infinite;
+        color: #15a3a5;
+    }
+
+    main .viewersCount {
+        animation: viewersCount 1s ease-in 0ms infinite normal backwards;
     }
 
     @keyframes animation {
@@ -359,6 +397,39 @@
             color: #5f06a7;
         }
 
+    }
+
+    @keyframes viewersCount {
+
+        0%,
+        100% {
+            transform: rotate(0deg);
+            transform-origin: 50% 50%;
+        }
+
+        10% {
+            transform: rotate(8deg);
+        }
+
+        20%,
+        40%,
+        60% {
+            transform: rotate(-10deg);
+        }
+
+        30%,
+        50%,
+        70% {
+            transform: rotate(10deg);
+        }
+
+        80% {
+            transform: rotate(-8deg);
+        }
+
+        90% {
+            transform: rotate(8deg);
+        }
     }
 
     main div.image-area div.image .logo {
