@@ -193,7 +193,7 @@
         this.send("CAP REQ :twitch.tv/tags twitch.tv/commands");
         this.send("PASS SCHMOOPIIE");
         this.send("NICK justinfan123");
-        this.send("JOIN #lscotesting");
+        this.send("JOIN #lsco");
     };
 
     ws.onmessage = function (event) {
@@ -201,7 +201,7 @@
             let color = event.data.split("color=")[1].split(";")[0]
             let bedges = event.data.split("badges=")[1].split(";")[0]
             let displayName = event.data.split("display-name=")[1].split(";")[0]
-            let message = event.data.split("PRIVMSG #lscotesting :")[1]
+            let message = event.data.split("PRIVMSG #lsco :")[1]
             chat.innerHTML += 
             `
             <div>
