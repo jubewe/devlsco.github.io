@@ -7,7 +7,7 @@
 
     <meta name="author" content="LsCo">
     <meta name="description" content="Twitch Moderator & Developer">
-    
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=0.7">
@@ -156,6 +156,15 @@
         </div>
         <div class="title">
             <div class="text">
+                Chat
+            </div>
+        </div>
+        <div class="front">
+            <div id="chat">
+            </div>
+        </div>
+        <div class="title">
+            <div class="text">
                 Social Media
             </div>
         </div>
@@ -176,6 +185,48 @@
 </body>
 
 <script>
+    const chat = document.getElementById("chat");
+
+    let ws = new WebSocket("wss://irc-ws.chat.twitch.tv/");
+
+    ws.onopen = function () {
+        this.send("CAP REQ :twitch.tv/tags twitch.tv/commands");
+        this.send("PASS SCHMOOPIIE");
+        this.send("NICK justinfan123");
+        this.send("JOIN #lscotesting");
+    };
+
+    ws.onmessage = function (event) {
+        if (event.data.includes("PRIVMSG")) {
+            let color = event.data.split("color=")[1].split(";")[0]
+            let bedges = event.data.split("badges=")[1].split(";")[0]
+            let displayName = event.data.split("display-name=")[1].split(";")[0]
+            let message = event.data.split("PRIVMSG #lscotesting :")[1]
+            chat.innerHTML += 
+            `
+            <div>
+                <div class="inner-chat-message">
+                    <div class="inner-chat-message date">
+                        ${new Date(new Date(new Date()).setHours(new Date().getHours() + 2)).toISOString().replace("T", " ").replace("Z", "").split(".")[0].split(" ")[1]}
+                    </div>
+                    <div  style="color: ${color};" class="inner-chat-message user">
+                        ${displayName}:
+                    </div>
+                    <div class="inner-chat-message message">
+                        ${message}
+                    </div>
+                </div>
+            </div>
+            `;
+            return console.log(`[Chat Nachricht]: Bedges: ${bedges.length ? bedges : "(null)"} | Color: ${color ? color : "(null)"} | displayName: ${displayName ? displayName : "(null)"} | Message: ${message}`);
+        }
+        console.log(`[Response]: ${event.data}`)
+    };
+
+    ws.onerror = function (error) {
+        console.log(`[Error]: ${error}`)
+    };
+
     const modlookup = document.getElementById("modlookup");
     const modlookupChannels = document.getElementById("modlookupChannels");
 
@@ -397,6 +448,16 @@
     main div.margin {
         margin-left: 10px;
         margin-right: 10px;
+    }
+
+    main div.inner-chat-message {
+        display: inline;
+        text-decoration: none;
+        vertical-align: unset;
+    }
+
+    main div.inner-chat-message.user {
+        color: #06456c;
     }
 </style>
 
