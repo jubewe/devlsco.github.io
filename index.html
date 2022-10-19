@@ -194,16 +194,53 @@
         this.send("PASS SCHMOOPIIE");
         this.send("NICK justinfan123");
         this.send("JOIN #lsco");
+        setInterval(() => {
+            this.send("PING");
+        }, 25000);
     };
 
-    ws.onmessage = function (event) {
+    ws.onmessage = async function (event) {
         if (event.data.includes("PRIVMSG")) {
             let color = event.data.split("color=")[1].split(";")[0]
             let bedges = event.data.split("badges=")[1].split(";")[0]
             let displayName = event.data.split("display-name=")[1].split(";")[0]
-            let message = event.data.split("PRIVMSG #lsco :")[1]
-            chat.innerHTML += 
-            `
+            let message = `${event.data.split("PRIVMSG #lsco :")[1]}`;
+            // channel Emotes
+            await fetch(`https://api.7tv.app/v2/users/lsco/emotes`).then(response => response.json()).then(data => {
+                for (const i of data) {
+                    message = message.replace(new RegExp(`\\b${i.name}\\b`, "gm"), ` <img src="https://cdn.7tv.app/emote/${i.id}/1x.webp" alt="${i.name}"> `);
+                }
+            })
+            await fetch(`https://api.betterttv.net/3/cached/users/twitch/617309984`).then(response => response.json()).then(data => {
+                for (const i of data.sharedEmotes) {
+                    message = message.replace(new RegExp(`\\b${i.code}\\b`, "gm"), ` <img src="https://cdn.betterttv.net/emote/${i.id}/1x" alt="${i.code}"> `);
+                }
+            })
+            await fetch(`https://api.frankerfacez.com/v1/room/lsco`).then(response => response.json()).then(data => {
+                for (const i of data.sets["1114561"].emoticons) {
+                    message = message.replace(new RegExp(`\\b${i.name}\\b`, "gm"), ` <img src="https://cdn.frankerfacez.com/emoticon/${i.id}/1" alt="${i.name}"> `);
+                }
+            })
+            // global Emotes
+            await fetch(`https://7tv.io/v3/emote-sets/global`).then(response => response.json()).then(data => {
+                for (const i of data.emotes) {
+                    message = message.replace(new RegExp(`\\b${i.name}\\b`, "gm"), ` <img src="https://cdn.7tv.app/emote/${i.id}/1x.webp" alt="${i.name}"> `);
+                }
+            })
+
+            await fetch(`https://api.betterttv.net/3/cached/emotes/global`).then(response => response.json()).then(data => {
+                for (const i of data) {
+                    message = message.replace(new RegExp(`\\b${i.code}\\b`, "gm"), ` <img src="https://cdn.betterttv.net/emote/${i.id}/1x" alt="${i.code}"> `);
+                }
+            })
+
+            await fetch(`https://api.frankerfacez.com/v1/set/global`).then(response => response.json()).then(data => {
+                for (const i of data.sets["3"].emoticons) {
+                    message = message.replace(new RegExp(`\\b${i.name}\\b`, "gm"), ` <img src="https://cdn.frankerfacez.com/emoticon/${i.id}/1" alt="${i.name}"> `);
+                }
+            })
+            chat.innerHTML +=
+                `
             <div>
                 <div class="inner-chat-message">
                     <div class="inner-chat-message date">
@@ -218,7 +255,6 @@
                 </div>
             </div>
             `;
-            return console.log(`[Chat Nachricht]: Bedges: ${bedges.length ? bedges : "(null)"} | Color: ${color ? color : "(null)"} | displayName: ${displayName ? displayName : "(null)"} | Message: ${message}`);
         }
         // console.log(`[Response]: ${event.data}`)
     };
