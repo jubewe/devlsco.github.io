@@ -282,6 +282,7 @@
 
         ws.onmessage = async function (event) {
             if (event.data.includes("PRIVMSG")) {
+                let date = event.data.split("tmi-sent-ts=")[1].split(";")[0]
                 let color = event.data.split("color=")[1].split(";")[0]
                 let bedges = event.data.split("badges=")[1].split(";")[0]
                 let displayName = event.data.split("display-name=")[1].split(";")[0]
@@ -289,27 +290,27 @@
 
 
                 for (const i of SevenTV.get("i")) {
-                    message = message.replace(new RegExp(`\\b${i.name}\\b`, "gm"), ` <img src="https://cdn.7tv.app/emote/${i.id}/1x.webp" alt="${i.name}"> `);
+                    message = message.replace(new RegExp(`\\b${i.name}\\b`, "gm"), ` <img src="https://cdn.7tv.app/emote/${i.id}/1x.webp"> `);
                 }
 
                 for (const i of BetterTTV.get("ii").sharedEmotes) {
-                    message = message.replace(new RegExp(`\\b${i.code}\\b`, "gm"), ` <img src="https://cdn.betterttv.net/emote/${i.id}/1x" alt="${i.code}"> `);
+                    message = message.replace(new RegExp(`\\b${i.code}\\b`, "gm"), ` <img src="https://cdn.betterttv.net/emote/${i.id}/1x"> `);
                 }
 
                 for (const i of FFZ.get("iii").sets["1114561"].emoticons) {
-                    message = message.replace(new RegExp(`\\b${i.name}\\b`, "gm"), ` <img src="https://cdn.frankerfacez.com/emoticon/${i.id}/1" alt="${i.name}"> `);
+                    message = message.replace(new RegExp(`\\b${i.name}\\b`, "gm"), ` <img src="https://cdn.frankerfacez.com/emoticon/${i.id}/1"> `);
                 }
 
                 for (const i of GlobalSevenTV.get("iiii").emotes) {
-                    message = message.replace(new RegExp(`\\b${i.name}\\b`, "gm"), ` <img src="https://cdn.7tv.app/emote/${i.id}/1x.webp" alt="${i.name}"> `);
+                    message = message.replace(new RegExp(`\\b${i.name}\\b`, "gm"), ` <img src="https://cdn.7tv.app/emote/${i.id}/1x.webp" `);
                 }
 
                 for (const i of GlobalBetterTTV.get("iiiii")) {
-                    message = message.replace(new RegExp(`\\b${i.code}\\b`, "gm"), ` <img src="https://cdn.betterttv.net/emote/${i.id}/1x" alt="${i.code}"> `);
+                    message = message.replace(new RegExp(`\\b${i.code}\\b`, "gm"), ` <img src="https://cdn.betterttv.net/emote/${i.id}/1x"> `);
                 }
 
                 for (const i of GlobalFFZ.get("iiiiii").sets["3"].emoticons) {
-                    message = message.replace(new RegExp(`\\b${i.name}\\b`, "gm"), ` <img src="https://cdn.frankerfacez.com/emoticon/${i.id}/1" alt="${i.name}"> `);
+                    message = message.replace(new RegExp(`\\b${i.name}\\b`, "gm"), ` <img src="https://cdn.frankerfacez.com/emoticon/${i.id}/1"> `);
                 }
                 chat.innerHTML +=
                     `
@@ -325,6 +326,7 @@
                         ${message}
                     </div>
                 </div>
+                <p></p>
             </div>
             `;
             }
