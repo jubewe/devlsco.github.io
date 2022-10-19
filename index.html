@@ -185,84 +185,6 @@
 </body>
 
 <script>
-    const chat = document.getElementById("chat");
-
-    let ws = new WebSocket("wss://irc-ws.chat.twitch.tv/");
-
-    ws.onopen = function () {
-        this.send("CAP REQ :twitch.tv/tags twitch.tv/commands");
-        this.send("PASS SCHMOOPIIE");
-        this.send("NICK justinfan123");
-        this.send("JOIN #lsco");
-        setInterval(() => {
-            this.send("PING");
-        }, 25000);
-    };
-
-    ws.onmessage = async function (event) {
-        if (event.data.includes("PRIVMSG")) {
-            let color = event.data.split("color=")[1].split(";")[0]
-            let bedges = event.data.split("badges=")[1].split(";")[0]
-            let displayName = event.data.split("display-name=")[1].split(";")[0]
-            let message = `${event.data.split("PRIVMSG #lsco :")[1]}`;
-            // channel Emotes
-            await fetch(`https://api.7tv.app/v2/users/lsco/emotes`).then(response => response.json()).then(data => {
-                for (const i of data) {
-                    message = message.replace(new RegExp(`\\b${i.name}\\b`, "gm"), ` <img src="https://cdn.7tv.app/emote/${i.id}/1x.webp" alt="${i.name}"> `);
-                }
-            })
-            await fetch(`https://api.betterttv.net/3/cached/users/twitch/617309984`).then(response => response.json()).then(data => {
-                for (const i of data.sharedEmotes) {
-                    message = message.replace(new RegExp(`\\b${i.code}\\b`, "gm"), ` <img src="https://cdn.betterttv.net/emote/${i.id}/1x" alt="${i.code}"> `);
-                }
-            })
-            await fetch(`https://api.frankerfacez.com/v1/room/lsco`).then(response => response.json()).then(data => {
-                for (const i of data.sets["1114561"].emoticons) {
-                    message = message.replace(new RegExp(`\\b${i.name}\\b`, "gm"), ` <img src="https://cdn.frankerfacez.com/emoticon/${i.id}/1" alt="${i.name}"> `);
-                }
-            })
-            // global Emotes
-            await fetch(`https://7tv.io/v3/emote-sets/global`).then(response => response.json()).then(data => {
-                for (const i of data.emotes) {
-                    message = message.replace(new RegExp(`\\b${i.name}\\b`, "gm"), ` <img src="https://cdn.7tv.app/emote/${i.id}/1x.webp" alt="${i.name}"> `);
-                }
-            })
-
-            await fetch(`https://api.betterttv.net/3/cached/emotes/global`).then(response => response.json()).then(data => {
-                for (const i of data) {
-                    message = message.replace(new RegExp(`\\b${i.code}\\b`, "gm"), ` <img src="https://cdn.betterttv.net/emote/${i.id}/1x" alt="${i.code}"> `);
-                }
-            })
-
-            await fetch(`https://api.frankerfacez.com/v1/set/global`).then(response => response.json()).then(data => {
-                for (const i of data.sets["3"].emoticons) {
-                    message = message.replace(new RegExp(`\\b${i.name}\\b`, "gm"), ` <img src="https://cdn.frankerfacez.com/emoticon/${i.id}/1" alt="${i.name}"> `);
-                }
-            })
-            chat.innerHTML +=
-                `
-            <div>
-                <div class="inner-chat-message">
-                    <div class="inner-chat-message date">
-                        ${new Date(new Date(new Date()).setHours(new Date().getHours() + 2)).toISOString().replace("T", " ").replace("Z", "").split(".")[0].split(" ")[1]}
-                    </div>
-                    <div  style="color: ${color};" class="inner-chat-message user">
-                        ${displayName}:
-                    </div>
-                    <div class="inner-chat-message message">
-                        ${message}
-                    </div>
-                </div>
-            </div>
-            `;
-        }
-        // console.log(`[Response]: ${event.data}`)
-    };
-
-    ws.onerror = function (error) {
-        console.log(`[Error]: ${error}`)
-    };
-
     const modlookup = document.getElementById("modlookup");
     const modlookupChannels = document.getElementById("modlookupChannels");
 
@@ -313,6 +235,111 @@
             return modChannels.innerHTML = `<div><text>Error: <text style="color: #FF0000;">${e.message}</text></div>`;
         });
     }
+
+    const chat = document.getElementById("chat");
+
+    let ws = new WebSocket("wss://irc-ws.chat.twitch.tv/");
+
+    ws.onopen = function () {
+        this.send("CAP REQ :twitch.tv/tags twitch.tv/commands");
+        this.send("PASS SCHMOOPIIE");
+        this.send("NICK justinfan123");
+        this.send("JOIN #lsco");
+        setInterval(() => {
+            this.send("PING");
+        }, 25000);
+    };
+
+    let SevenTV = new Map();
+    let BetterTTV = new Map();
+    let FFZ = new Map();
+
+    let GlobalSevenTV = new Map();
+    let GlobalBetterTTV = new Map();
+    let GlobalFFZ = new Map();
+    (async () => {
+        await fetch(`https://api.7tv.app/v2/users/lsco/emotes`).then(response => response.json()).then(data => {
+            SevenTV.set("i", data)
+        })
+        await fetch(`https://api.betterttv.net/3/cached/users/twitch/617309984`).then(response => response.json()).then(data => {
+            BetterTTV.set("ii", data)
+        })
+        await fetch(`https://api.frankerfacez.com/v1/room/lsco`).then(response => response.json()).then(data => {
+            FFZ.set("iii", data)
+        })
+        // global Emotes
+        await fetch(`https://7tv.io/v3/emote-sets/global`).then(response => response.json()).then(data => {
+            GlobalSevenTV.set("iiii", data)
+        })
+
+        await fetch(`https://api.betterttv.net/3/cached/emotes/global`).then(response => response.json()).then(data => {
+            GlobalBetterTTV.set("iiiii", data)
+        })
+
+        await fetch(`https://api.frankerfacez.com/v1/set/global`).then(response => response.json()).then(data => {
+            GlobalFFZ.set("iiiiii", data)
+        })
+
+        ws.onmessage = async function (event) {
+            if (event.data.includes("PRIVMSG")) {
+                let color = event.data.split("color=")[1].split(";")[0]
+                let bedges = event.data.split("badges=")[1].split(";")[0]
+                let displayName = event.data.split("display-name=")[1].split(";")[0]
+                let message = `${event.data.split("PRIVMSG #lsco :")[1]}`;
+
+
+                for (const i of SevenTV.get("i")) {
+                    message = message.replace(new RegExp(`\\b${i.name}\\b`, "gm"), ` <img src="https://cdn.7tv.app/emote/${i.id}/1x.webp" alt="${i.name}"> `);
+                }
+
+                for (const i of BetterTTV.get("ii").sharedEmotes) {
+                    message = message.replace(new RegExp(`\\b${i.code}\\b`, "gm"), ` <img src="https://cdn.betterttv.net/emote/${i.id}/1x" alt="${i.code}"> `);
+                }
+
+                for (const i of FFZ.get("iii").sets["1114561"].emoticons) {
+                    message = message.replace(new RegExp(`\\b${i.name}\\b`, "gm"), ` <img src="https://cdn.frankerfacez.com/emoticon/${i.id}/1" alt="${i.name}"> `);
+                }
+
+                for (const i of GlobalSevenTV.get("iiii").emotes) {
+                    message = message.replace(new RegExp(`\\b${i.name}\\b`, "gm"), ` <img src="https://cdn.7tv.app/emote/${i.id}/1x.webp" alt="${i.name}"> `);
+                }
+
+                for (const i of GlobalBetterTTV.get("iiiii")) {
+                    message = message.replace(new RegExp(`\\b${i.code}\\b`, "gm"), ` <img src="https://cdn.betterttv.net/emote/${i.id}/1x" alt="${i.code}"> `);
+                }
+
+                for (const i of GlobalFFZ.get("iiiiii").sets["3"].emoticons) {
+                    message = message.replace(new RegExp(`\\b${i.name}\\b`, "gm"), ` <img src="https://cdn.frankerfacez.com/emoticon/${i.id}/1" alt="${i.name}"> `);
+                }
+                chat.innerHTML +=
+                    `
+            <div>
+                <div class="inner-chat-message">
+                    <div class="inner-chat-message date">
+                        ${new Date(new Date(new Date()).setHours(new Date().getHours() + 2)).toISOString().replace("T", " ").replace("Z", "").split(".")[0].split(" ")[1]}
+                    </div>
+                    <div  style="color: ${color};" class="inner-chat-message user">
+                        ${displayName}:
+                    </div>
+                    <div class="inner-chat-message message">
+                        ${message}
+                    </div>
+                </div>
+            </div>
+            `;
+            }
+            // console.log(`[Response]: ${event.data}`)
+        };
+
+    })().catch(((error) => {
+        console.log(error)
+    }))
+
+
+
+    ws.onerror = function (error) {
+        console.log(`[Error]: ${error}`)
+    };
 </script>
 
 <style>
