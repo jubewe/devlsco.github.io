@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spam Tool</title>
+</head>
+
+<body>
+    <h1>Spam</h1>
+    <input type="text" name="Channel" id="channel" placeholder="Channel"">
+    <input type=" text" name="Text" id="text" placeholder="Text">
+    <input type="number" name="Number" id="number" placeholder="Number">
+    <button type="submit" onclick="log()">Send</button>
+    <span class="response" id="response"></span>
+    <h2>Infos:</h2>
+    <ul>
+        <li>Cooldown to Send is 2,5s</li>
+        <li>Maximum. messages to Send 25</li>
+        <li>Please, don't abuse this Tool</li>
+    </ul>
+</body>
+
+<script>
+    let userToken;
+    let userLogin;
+    let clientId
+    if (window.location.hash.includes("#access_token=")) {
+        fetch(`https://id.twitch.tv/oauth2/validate`, {
+            headers: {
+                "Authorization": `Bearer ${window.location.hash.split("#access_token=")[1].split("&")[0]}`,
+            }
+        }).then(response => response.json()).then((data) => {
+            userToken = window.location.hash.split("#access_token=")[1].split("&")[0];
+            userLogin = data.login;
+            clientId = data.client_id;
+        }).catch(error => {
+            console.log(error);
+        });
+    }
+    const channel = document.getElementById("channel");
+    const number = document.getElementById("number");
+    const text = document.getElementById("text");
+    const login = document.getElementById("login");
+
+    const cooldown = new Map();
+
+    function response(text) {
+        const response = document.getElementById("response"); ""
+        if (!text) return `Error: Function response is ${text}`;
+        return response.innerHTML = text;
+    }
+    async function log() {
+        if (cooldown.has("")) return;
+
+        cooldown.set("", Date.now());
+        setTimeout(() => {
+            cooldown.delete("");
+        }, 2500);
+
+        const textRegEx = new RegExp("^.{1,450}$", "");
+        const numberRegEx = new RegExp("^[0-9]+$", "");
+        const channelRegEx = new RegExp("^\\w{1,25}$", "");
+
+        if (!channelRegEx.test(String(channel.value))) {
+            return response(`Error: Channel must match pattern "${channelRegEx}".`);
+        }
+        if (!textRegEx.test(String(text.value))) {
+            return response(`Error: Text must match pattern "${textRegEx}".`);
+        }
+        if (!numberRegEx.test(Number(number.value))) {
+            return response(`Error: Number must match pattern "${numberRegEx}".`);
+        }
+        if (Number(number.value > 25)) {
+            return response(`Error: Number maximum. 25`);
+        }
+        if (!userToken) {
+            return response(`Token not found. (Click on <a href="https://id.twitch.tv/oauth2/authorize?response_type=token&client_id=oja440lzo9ek9ogxnymgtoq3j4m4yq&redirect_uri=https://devlsco.github.io/spam-tool&scope=chat:read+chat:edit+channel:moderate" target="_blank" rel="noopener noreferrer">Login</a> to request a new Token)`);
+        }
+        await fetch(`https://api.twitch.tv/helix/users?login=${channel.value}`, {
+            headers: {
+                "Authorization": `Bearer ${userToken}`,
+                "Client-Id": `${clientId}`
+            }
+        }).then(response => response.json()).then(({ data }) => {
+            if (data.length > 0) {
+                let ws = new WebSocket("wss://irc-ws.chat.twitch.tv/");
+
+                ws.onopen = async function () {
+                    await this.send(`PASS oauth:${userToken}`);
+                    await this.send(`NICK ${userLogin}`);
+                    (async () => {
+                        for (d = 0; d < Number(number.value); d++) {
+                            await this.send(`PRIVMSG #${channel.value} :${text.value}`);
+                        }
+                    })().then(() => {
+                        ws.close()
+                    });
+                }
+                return response(`Successfully sent ${Number(number.value)} messages in ${String(channel.value)} | Message: ${text.value}`);
+            } else return response.innerText = `Channel not found `;
+        }).catch(error => {
+            response(error.message)
+        });
+
+    }
+</script>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+    :root {
+        --Background-color: rgb(26, 26, 26);
+        --text-color: #fff;
+    }
+
+    body {
+        background-color: var(--Background-color);
+        color: var(--text-color);
+        user-select: none;
+        font-family: 'Lato', sans-serif;
+    }
+
+    input {
+        width: 90%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        border: hidden;
+        background-color: #292929;
+        color: #fff;
+    }
+
+    button {
+        width: 30%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        border: hidden;
+        background-color: #292929;
+        color: #fff;
+    }
+
+    span.response {
+        padding: 30px;
+    }
+
+    a {
+        display: inline;
+        color: #15a3a5;
+        text-decoration: none;
+        vertical-align: unset;
+    }
+</style>
+
+</html>
