@@ -16,7 +16,11 @@
     <span class="response" id="response"></span>
     <h2>Infos:</h2>
     <ul>
-        <li>...</li>
+        <li>Cooldown to Send is 2,5s</li>
+        <li>Please, don't abuse this Tool</li>
+        <br>
+        <li>(rate limits) If the user isn’t the channel’s broadcaster or moderator, the bot may send a maximum of 20 messages per 30 seconds.</li>
+        <li>(rate limits) If the user is the channel’s broadcaster or moderator, the bot may send a maximum of 100 messages per 30 seconds.</li>
     </ul>
 </body>
 
@@ -84,10 +88,11 @@
                         ws.close()
                     });
                 }
-                return response(`Successfully sent ${Number(number.value)} messages in ${String(channel.value)} | Message: ${text.value}`);
+                return response(`Successfully sent filesay in ${String(channel.value)}`);
             } else return response.innerText = `Channel not found `;
         }).catch(error => {
             response(error.message)
+            console.log(error);
         });
 
     }
