@@ -5,21 +5,18 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spam Tool</title>
+    <title>Filesay Tool</title>
 </head>
 
 <body>
-    <h1>Spam</h1>
+    <h1>Filesay</h1>
     <input type="text" name="Channel" id="channel" placeholder="Channel"">
-    <input type="text" name="Text" id="text" placeholder="Text">
-    <input type="number" name="Number" id="number" placeholder="Number">
+    <textarea name=" textarea" id="text" rows="15"></textarea>
     <button type="submit" onclick="log()">Send</button>
     <span class="response" id="response"></span>
     <h2>Infos:</h2>
     <ul>
-        <li>Cooldown to Send is 2,5s</li>
-        <li>Maximum. messages to Send 25</li>
-        <li>Please, don't abuse this Tool</li>
+        <li>...</li>
     </ul>
 </body>
 
@@ -59,24 +56,13 @@
             cooldown.delete("");
         }, 2500);
 
-        const textRegEx = new RegExp("^.{1,450}$", "");
-        const numberRegEx = new RegExp("^[0-9]+$", "");
         const channelRegEx = new RegExp("^\\w{1,25}$", "");
 
         if (!channelRegEx.test(String(channel.value))) {
             return response(`Error: Channel must match pattern "${channelRegEx}".`);
         }
-        if (!textRegEx.test(String(text.value))) {
-            return response(`Error: Text must match pattern "${textRegEx}".`);
-        }
-        if (!numberRegEx.test(Number(number.value))) {
-            return response(`Error: Number must match pattern "${numberRegEx}".`);
-        }
-        if (Number(number.value > 25)) {
-            return response(`Error: Number maximum. 25`);
-        }
         if (!userToken) {
-            return response(`Token not found. (Click on <a href="https://id.twitch.tv/oauth2/authorize?response_type=token&client_id=oja440lzo9ek9ogxnymgtoq3j4m4yq&redirect_uri=https://devlsco.github.io/spam-tool&scope=chat:read+chat:edit+channel:moderate" target="_blank" rel="noopener noreferrer">Login</a> to request a new Token)`);
+            return response(`Token not found. (Click on <a href="https://id.twitch.tv/oauth2/authorize?response_type=token&client_id=oja440lzo9ek9ogxnymgtoq3j4m4yq&redirect_uri=https://devlsco.github.io/filesay-tool&scope=chat:read+chat:edit+channel:moderate" target="_blank" rel="noopener noreferrer">Login</a> to request a new Token)`);
         }
         await fetch(`https://api.twitch.tv/helix/users?login=${channel.value}`, {
             headers: {
@@ -91,8 +77,8 @@
                     await this.send(`PASS oauth:${userToken}`);
                     await this.send(`NICK ${userLogin}`);
                     (async () => {
-                        for (d = 0; d < Number(number.value); d++) {
-                            await this.send(`PRIVMSG #${channel.value} :${text.value}`);
+                        for (const i of text.value.split("\n")) {
+                            await this.send(`PRIVMSG #${channel.value} :${i}`);
                         }
                     })().then(() => {
                         ws.close()
@@ -122,13 +108,19 @@
         font-family: 'Lato', sans-serif;
     }
 
-    input {
+    input,
+    textarea {
         width: 90%;
         padding: 12px 20px;
         margin: 8px 0;
         border: hidden;
         background-color: #292929;
         color: #fff;
+    }
+
+    textarea {
+        display: flex;
+        resize: none;
     }
 
     button {
