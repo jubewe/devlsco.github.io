@@ -36,6 +36,7 @@
     const ws = new WebSocket("wss://irc-ws.chat.twitch.tv/");
 
     ws.onopen = async function () {
+        await ws.send(`PING`);
         setInterval(async () => {
             await ws.send(`PING`);
         }, 10000);
