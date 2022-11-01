@@ -107,7 +107,7 @@
                 "Client-Id": `${await readCokie("clientid")}`
             }
         }).then(res => res.json()).then(async ({ data }) => {
-            if (!Number(data.length) === 0) return response(`Channel was not found `);
+            if (data.status !== undefined) return response(`Channel was not found `);
             if (version === 1) {
                 new WebSocket("wss://irc-ws.chat.twitch.tv/").onopen = async function () {
                     await this.send(`PASS oauth:${await readCokie("token")}`);
