@@ -56,8 +56,8 @@ async function send(version) {
     const channelRegEx = new RegExp("^\\w{1,25}$", "");
 
     if (await readCokie("token") === null || await readCokie("login") === null || await readCokie("clientid") === null) {
-        const url = "https://id.twitch.tv/oauth2/authorize?response_type=token&client_id=oja440lzo9ek9ogxnymgtoq3j4m4yq&redirect_uri=https://devlsco.github.io/filesay-tool&scope=chat:read+chat:edit+channel:moderate";
-        return response(`Token or clientID not found. (Click on <a href="${url}">Login</a> to request a new Token)`);
+        const url = "https://id.twitch.tv/oauth2/authorize?response_type=token&client_id=oja440lzo9ek9ogxnymgtoq3j4m4yq&redirect_uri=https://devlsco.github.io/spam-tool&scope=chat:read+chat:edit+channel:moderate";
+        if (dataaaaa.status !== undefined) return await response(`Error: ${dataaaaa.message} | Status: ${dataaaaa.status} | (Click on <a href="${url}">Login</a> to request a new Token)`);
     }
 
     await fetch(`https://id.twitch.tv/oauth2/validate`, {

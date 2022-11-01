@@ -64,7 +64,8 @@ async function send(version) {
             "Authorization": `Bearer ${await readCokie("token")}`,
         }
     }).then(response => response.json()).then(async (dataaaaa) => {
-        if (dataaaaa.status !== undefined) return await response(`Error: ${dataaaaa.message} | ${dataaaaa.status}`);
+        const url = "https://id.twitch.tv/oauth2/authorize?response_type=token&client_id=oja440lzo9ek9ogxnymgtoq3j4m4yq&redirect_uri=https://devlsco.github.io/spam-tool&scope=chat:read+chat:edit+channel:moderate";
+        if (dataaaaa.status !== undefined) return await response(`Error: ${dataaaaa.message} | Status: ${dataaaaa.status} | (Click on <a href="${url}">Login</a> to request a new Token)`);
 
         const channelRegEx = new RegExp("^\\w{1,25}$", "");
         if (!channelRegEx.test(String(channel.value))) {
