@@ -1,5 +1,4 @@
 const channel = document.getElementById("channel");
-const number = document.getElementById("number");
 const text = document.getElementById("text");
 
 const cooldown = new Map();
@@ -88,5 +87,4 @@ async function send(version) {
         console.log(error);
         return response(`Error: ${error.message}`)
     });
-
 }
