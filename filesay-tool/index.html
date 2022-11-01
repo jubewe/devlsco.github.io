@@ -109,14 +109,14 @@
                     await this.send(`PASS oauth:${await readCokie("token")}`);
                     await this.send(`NICK ${await readCokie("login")}`);
                     for (const i of text.value.split("\n")) {
-                        await this.send(`PRIVMSG #${channel.value} :${text.value}`);
+                        await this.send(`PRIVMSG #${channel.value} :${i}`);
                     }
                     setTimeout(() => {
                         this.close();
                     }, 5000);
                 }
             }
-            return response(`Successfully sent ${Number(number.value)} messages in ${String(channel.value)} | Message: ${text.value}`);
+            return response(`Successfully sent ${Number(text.value.split("\n").length)} messages in ${String(channel.value)}`);
         }).catch(error => {
             console.log(error);
             return response(`Error: ${error.message}`)
