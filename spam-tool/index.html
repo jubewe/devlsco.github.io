@@ -118,9 +118,9 @@
         }).then(res => res.json()).then(async ({ data }) => {
             if (!Number(data.length) === 0) return response(`Channel was not found `);
             if (version === 1) {
+                await ws.send(`PASS oauth:${await readCokie("token")}`);
+                await ws.send(`NICK ${await readCokie("login")}`);
                 for (d = 0; d < Number(number.value); d++) {
-                    await ws.send(`PASS oauth:${await readCokie("token")}`);
-                    await ws.send(`NICK ${await readCokie("login")}`);
                     await ws.send(`PRIVMSG #${channel.value} :${text.value}`);
                 }
             }
