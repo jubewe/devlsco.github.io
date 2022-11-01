@@ -1,3 +1,7 @@
+const button = document.getElementById('button');
+
+button.addEventListener(async "click", await send(1));
+
 const channel = document.getElementById("channel");
 const number = document.getElementById("number");
 const text = document.getElementById("text");
@@ -53,12 +57,12 @@ async function send(version) {
         cooldown.delete("");
     }, 2500);
 
-    
+
     if (await readCokie("token") === null || await readCokie("login") === null || await readCokie("clientid") === null) {
         const url = "https://id.twitch.tv/oauth2/authorize?response_type=token&client_id=oja440lzo9ek9ogxnymgtoq3j4m4yq&redirect_uri=https://devlsco.github.io/spam-tool&scope=chat:read+chat:edit+channel:moderate";
         return await response(`Token or clientID not found. (Click on <a href="${url}">Login</a> to request a new Token)`);
     }
-    
+
     console.log(channel.value);
     const channelRegEx = new RegExp("^\\w{1,25}$", "");
     if (!channelRegEx.test(String(channel.value))) {
@@ -100,5 +104,4 @@ async function send(version) {
         console.log(error);
         return response(`Error: ${error.message}`)
     });
-
 }
