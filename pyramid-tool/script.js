@@ -90,13 +90,14 @@ async function send(version) {
             new WebSocket("wss://irc-ws.chat.twitch.tv/").onopen = async function () {
                 await this.send(`PASS oauth:${await readCokie("token")}`);
                 await this.send(`NICK ${await readCokie("login")}`);
+                const text_ = text.value + " ";
                 for (let i = 1; i <= size.value; i++) {
-                    await this.send(`PRIVMSG #${channel.value} :${text.value.repeat(i) + " "}`);
+                    await this.send(`PRIVMSG #${channel.value} :${text_.repeat(i)}`);
                     await sleep(100)
                 }
 
                 for (let i = (size.value - 1); i > 0; i--) {
-                    await this.send(`PRIVMSG #${channel.value} :${text.value.repeat(i) + " "}`);
+                    await this.send(`PRIVMSG #${channel.value} :${text_.repeat(i)}`);
                     await sleep(100)
                 }
                 setTimeout(() => {
