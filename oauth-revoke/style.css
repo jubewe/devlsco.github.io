@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+:root {
+    --Background-color: rgb(26, 26, 26);
+    --text-color: #fff;
+}
+
+body {
+    background-color: var(--Background-color);
+    color: var(--text-color);
+    user-select: none;
+    font-family: 'Lato', sans-serif;
+}
+
+input[type="text"] {
+    width: 90%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    border: hidden;
+    background-color: #292929;
+    color: #fff;
+}
+
+button {
+    width: 20%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    border: hidden;
+    background-color: #292929;
+    color: #fff;
+}
+
+span.response {
+    padding: 30px;
+}
