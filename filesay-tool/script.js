@@ -1,5 +1,6 @@
 const channel = document.getElementById("channel");
 const text = document.getElementById("text");
+const info = document.getElementById("info");
 
 const cooldown = new Map();
 
