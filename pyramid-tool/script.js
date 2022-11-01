@@ -105,7 +105,7 @@ async function send(version) {
                 }, 5000);
             }
         }
-        return response(`Successfully sent ${Number(size.value)} size length pyramid in ${String(channel.value)}`);
+        return response(`Successfully sent ${Number(size.value)} size length pyramid in ${String(channel.value)}`); 
     }).catch(error => {
         console.log(error);
         return response(`Error: ${error.message}`)
