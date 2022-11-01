@@ -91,12 +91,12 @@ async function send(version) {
                 await this.send(`PASS oauth:${await readCokie("token")}`);
                 await this.send(`NICK ${await readCokie("login")}`);
                 for (let i = 1; i <= size.value; i++) {
-                    await this.send(`PRIVMSG #${channel.value} :${text.value.repeat(i)}`);
+                    await this.send(`PRIVMSG #${channel.value} :${text.value.repeat(i) + " "}`);
                     await sleep(100)
                 }
-        
+
                 for (let i = (size.value - 1); i > 0; i--) {
-                    await this.send(`PRIVMSG #${channel.value} :${text.value.repeat(i)}`);
+                    await this.send(`PRIVMSG #${channel.value} :${text.value.repeat(i) + " "}`);
                     await sleep(100)
                 }
                 setTimeout(() => {
