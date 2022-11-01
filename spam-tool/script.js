@@ -1,7 +1,3 @@
-const button = document.getElementById('button');
-
-button.addEventListener("click", send(1));
-
 const channel = document.getElementById("channel");
 const number = document.getElementById("number");
 const text = document.getElementById("text");
