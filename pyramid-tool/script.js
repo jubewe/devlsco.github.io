@@ -104,7 +104,7 @@ async function send(version) {
                 }, 5000);
             }
         }
-        return response(`Successfully sent ${Number(number.value)} messages in ${String(channel.value)} | Message: ${text.value}`);
+        return response(`Successfully sent ${Number(size.value)} messages in ${String(channel.value)}`);
     }).catch(error => {
         console.log(error);
         return response(`Error: ${error.message}`)
