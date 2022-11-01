@@ -10,7 +10,7 @@
 
 <body>
     <h1>Filesay</h1>
-    <input type="text" name="Channel" id="channel" placeholder="Channel"">
+    <input type="text" name="Channel" id="channel" placeholder="Channel">
     <textarea name=" textarea" id="text" rows="15"></textarea>
     <button type="submit" onclick="send(1)">Send</button>
     <span class="response" id="response"></span>
@@ -51,7 +51,7 @@
         }).then(response => response.json()).then(async (data) => {
             await setCookie("token", window.location.hash.split("#access_token=")[1].split("&")[0]);
             await setCookie("login", data.login);
-            await setCookie("clientid", data.client_id).then(() => {=s
+            await setCookie("clientid", data.client_id).then(() => {
                 const url = document.baseURI.split("#access_token=")
                 window.location.replace(url[0]);
             })
@@ -89,7 +89,7 @@
         const channelRegEx = new RegExp("^\\w{1,25}$", "");
 
         if (await readCokie("token") === null || await readCokie("login") === null || await readCokie("clientid") === null) {
-            const url = "https://id.twitch.tv/oauth2/authorize?response_type=token&client_id=oja440lzo9ek9ogxnymgtoq3j4m4yq&redirect_uri=https://devlsco.github.io/spam-tool&scope=chat:read+chat:edit+channel:moderate";
+            const url = "https://id.twitch.tv/oauth2/authorize?response_type=token&client_id=oja440lzo9ek9ogxnymgtoq3j4m4yq&redirect_uri=https://devlsco.github.io/filesay-tool&scope=chat:read+chat:edit+channel:moderate";
             return response(`Token or clientID not found. (Click on <a href="${url}">Login</a> to request a new Token)`);
         }
 

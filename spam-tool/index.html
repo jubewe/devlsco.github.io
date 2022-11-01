@@ -47,7 +47,7 @@
         }).then(response => response.json()).then(async (data) => {
             await setCookie("token", window.location.hash.split("#access_token=")[1].split("&")[0]);
             await setCookie("login", data.login);
-            await setCookie("clientid", data.client_id).then(() => {=s
+            await setCookie("clientid", data.client_id).then(() => {
                 const url = document.baseURI.split("#access_token=")
                 window.location.replace(url[0]);
             })
