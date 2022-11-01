@@ -6,7 +6,7 @@ const cooldown = new Map();
 
 function response(text) {
     const response_ = document.getElementById("response");
-    if (!text) return `Error: Function response is ${text}`;
+    if (!text) return `Error: Function response is " ${text} "`;
     return response_.innerHTML = text;
 }
 
