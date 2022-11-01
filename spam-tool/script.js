@@ -62,6 +62,7 @@ async function send(version) {
         return response(`Token or clientID not found. (Click on <a href="${url}">Login</a> to request a new Token)`);
     }
 
+    console.log(channel.value);
     if (!channelRegEx.test(String(channel.value))) {
         return response(`Error: Channel must match pattern "${channelRegEx}".`);
     }
