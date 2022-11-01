@@ -60,6 +60,14 @@ async function send(version) {
         return response(`Token or clientID not found. (Click on <a href="${url}">Login</a> to request a new Token)`);
     }
 
+    fetch(`https://id.twitch.tv/oauth2/validate`, {
+        headers: {
+            "Authorization": `Bearer ${await readCokie("token")}`,
+        }
+    }).then(response => response.json()).then(async (data) => {
+        if (data.status !== undefined) return await response(`Error: ${data.message} | ${data.status}`);
+    })
+
     if (!channelRegEx.test(String(channel.value))) {
         return response(`Error: Channel must match pattern "${channelRegEx}".`);
     }
