@@ -115,6 +115,9 @@
                     for (d = 0; d < Number(number.value); d++) {
                         await this.send(`PRIVMSG #${channel.value} :${text.value}`);
                     }
+                    setTimeout(() => {
+                        this.close();
+                    }, 5000);
                 }
             }
             return response(`Successfully sent ${Number(number.value)} messages in ${String(channel.value)} | Message: ${text.value}`);
