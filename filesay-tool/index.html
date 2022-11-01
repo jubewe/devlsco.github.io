@@ -12,35 +12,25 @@
     <h1>Filesay</h1>
     <input type="text" name="Channel" id="channel" placeholder="Channel"">
     <textarea name=" textarea" id="text" rows="15"></textarea>
-    <button type="submit" onclick="log()">Send</button>
+    <button type="submit" onclick="send(1)">Send</button>
     <span class="response" id="response"></span>
     <h2>Infos:</h2>
     <ul>
-        <li>Cooldown to Send is 2,5s</li>
-        <li>Please, don't abuse this Tool</li>
+        <li>Cooldown to Send is 2,5.s</li>
+        <li>Maximum. messages to Send 25.</li>
+        <li>Check if you are MOD or VIP in this channel.</li>
+        <li>Please, don't abuse this Tool.</li>
         <br>
-        <li>(rate limits) If the user isn’t the channel’s broadcaster or moderator, the bot may send a maximum of 20 messages per 30 seconds.</li>
-        <li>(rate limits) If the user is the channel’s broadcaster or moderator, the bot may send a maximum of 100 messages per 30 seconds.</li>
+        <li>If you are not a bot account, it will very likely get a shadow ban.</li>
+        <br>
+        <li>(rate-limits) If the user isn’t the channel’s broadcaster or moderator, the bot may send a maximum of 20
+            messages per 30 seconds.</li>
+        <li>(rate-limits) If the user is the channel’s broadcaster or moderator, the bot may send a maximum of 100
+            messages per 30 seconds.</li>
     </ul>
 </body>
 
 <script>
-    let userToken;
-    let userLogin;
-    let clientId
-    if (window.location.hash.includes("#access_token=")) {
-        fetch(`https://id.twitch.tv/oauth2/validate`, {
-            headers: {
-                "Authorization": `Bearer ${window.location.hash.split("#access_token=")[1].split("&")[0]}`,
-            }
-        }).then(response => response.json()).then((data) => {
-            userToken = window.location.hash.split("#access_token=")[1].split("&")[0];
-            userLogin = data.login;
-            clientId = data.client_id;
-        }).catch(error => {
-            console.log(error);
-        });
-    }
     const channel = document.getElementById("channel");
     const number = document.getElementById("number");
     const text = document.getElementById("text");
@@ -48,51 +38,88 @@
     const cooldown = new Map();
 
     function response(text) {
-        const response = document.getElementById("response");
+        const response_ = document.getElementById("response");
         if (!text) return `Error: Function response is ${text}`;
-        return response.innerHTML = text;
+        return response_.innerHTML = text;
     }
-    async function log() {
-        if (cooldown.has("")) return;
 
+    if (window.location.hash.includes("#access_token=")) {
+        fetch(`https://id.twitch.tv/oauth2/validate`, {
+            headers: {
+                "Authorization": `Bearer ${window.location.hash.split("#access_token=")[1].split("&")[0]}`,
+            }
+        }).then(response => response.json()).then(async (data) => {
+            await setCookie("token", window.location.hash.split("#access_token=")[1].split("&")[0]);
+            await setCookie("login", data.login);
+            await setCookie("clientid", data.client_id).then(() => {=s
+                const url = document.baseURI.split("#access_token=")
+                window.location.replace(url[0]);
+            })
+        })
+    }
+
+    async function readCokie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) == 0) return await c.substring(nameEQ.length, c.length);
+        }
+        return await null;
+    }
+
+    async function setCookie(name, value, days) {
+        var expires = "";
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + (value || "") + expires + "; path=/";
+    }
+
+    async function send(version) {
+        if (cooldown.has("")) return;
         cooldown.set("", Date.now());
         setTimeout(() => {
             cooldown.delete("");
-        }, 2500);
+        }, 5000);
 
         const channelRegEx = new RegExp("^\\w{1,25}$", "");
+
+        if (await readCokie("token") === null || await readCokie("login") === null || await readCokie("clientid") === null) {
+            const url = "https://id.twitch.tv/oauth2/authorize?response_type=token&client_id=oja440lzo9ek9ogxnymgtoq3j4m4yq&redirect_uri=https://devlsco.github.io/spam-tool&scope=chat:read+chat:edit+channel:moderate";
+            return response(`Token or clientID not found. (Click on <a href="${url}">Login</a> to request a new Token)`);
+        }
 
         if (!channelRegEx.test(String(channel.value))) {
             return response(`Error: Channel must match pattern "${channelRegEx}".`);
         }
-        if (!userToken) {
-            return response(`Token not found. (Click on <a href="https://id.twitch.tv/oauth2/authorize?response_type=token&client_id=oja440lzo9ek9ogxnymgtoq3j4m4yq&redirect_uri=https://devlsco.github.io/filesay-tool&scope=chat:read+chat:edit+channel:moderate" target="_blank" rel="noopener noreferrer">Login</a> to request a new Token)`);
-        }
+
         await fetch(`https://api.twitch.tv/helix/users?login=${channel.value}`, {
             headers: {
-                "Authorization": `Bearer ${userToken}`,
-                "Client-Id": `${clientId}`
+                "Authorization": `Bearer ${await readCokie("token")}`,
+                "Client-Id": `${await readCokie("clientid")}`
             }
-        }).then(response => response.json()).then(({ data }) => {
-            if (data.length > 0) {
-                let ws = new WebSocket("wss://irc-ws.chat.twitch.tv/");
-
-                ws.onopen = async function () {
-                    await this.send(`PASS oauth:${userToken}`);
-                    await this.send(`NICK ${userLogin}`);
-                    (async () => {
-                        for (const i of text.value.split("\n")) {
-                            await this.send(`PRIVMSG #${channel.value} :${i}`);
-                        }
-                    })().then(() => {
-                        ws.close()
-                    });
+        }).then(res => res.json()).then(async ({ data }) => {
+            if (data.status !== undefined) return response(`Channel was not found `);
+            if (version === 1) {
+                new WebSocket("wss://irc-ws.chat.twitch.tv/").onopen = async function () {
+                    await this.send(`PASS oauth:${await readCokie("token")}`);
+                    await this.send(`NICK ${await readCokie("login")}`);
+                    for (const i of text.value.split("\n")) {
+                        await this.send(`PRIVMSG #${channel.value} :${text.value}`);
+                    }
+                    setTimeout(() => {
+                        this.close();
+                    }, 5000);
                 }
-                return response(`Successfully sent filesay in ${String(channel.value)}`);
-            } else return response.innerText = `Channel not found `;
+            }
+            return response(`Successfully sent ${Number(number.value)} messages in ${String(channel.value)} | Message: ${text.value}`);
         }).catch(error => {
-            response(error.message)
             console.log(error);
+            return response(`Error: ${error.message}`)
         });
 
     }
@@ -113,7 +140,7 @@
         font-family: 'Lato', sans-serif;
     }
 
-    input,
+    input[type="text"],
     textarea {
         width: 90%;
         padding: 12px 20px;
@@ -129,7 +156,7 @@
     }
 
     button {
-        width: 30%;
+        width: 20%;
         padding: 12px 20px;
         margin: 8px 0;
         border: hidden;

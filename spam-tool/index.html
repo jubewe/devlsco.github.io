@@ -47,7 +47,7 @@
         }).then(response => response.json()).then(async (data) => {
             await setCookie("token", window.location.hash.split("#access_token=")[1].split("&")[0]);
             await setCookie("login", data.login);
-            await setCookie("clientid", data.client_id).then(() => {
+            await setCookie("clientid", data.client_id).then(() => {=s
                 const url = document.baseURI.split("#access_token=")
                 window.location.replace(url[0]);
             })
@@ -133,7 +133,7 @@
 </script>
 
 <style>
-    @import url('https://fonts.googleap\is.com/css2?family=Lato:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;1,300;1,400&display=swap');
 
     :root {
         --Background-color: rgb(26, 26, 26);
