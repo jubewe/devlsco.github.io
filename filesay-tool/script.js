@@ -64,36 +64,36 @@ async function send(version) {
         headers: {
             "Authorization": `Bearer ${await readCokie("token")}`,
         }
-    }).then(response => response.json()).then(async (data) => {
-        if (data.status !== undefined) return await response(`Error: ${data.message} | ${data.status}`);
-    })
+    }).then(response => response.json()).then(async (dataaaaa) => {
+        if (dataaaaa.status !== undefined) return await response(`Error: ${dataaaaa.message} | ${dataaaaa.status}`);
 
-    if (!channelRegEx.test(String(channel.value))) {
-        return response(`Error: Channel must match pattern "${channelRegEx}".`);
-    }
-
-    await fetch(`https://api.twitch.tv/helix/users?login=${channel.value}`, {
-        headers: {
-            "Authorization": `Bearer ${await readCokie("token")}`,
-            "Client-Id": `${await readCokie("clientid")}`
+        if (!channelRegEx.test(String(channel.value))) {
+            return response(`Error: Channel must match pattern "${channelRegEx}".`);
         }
-    }).then(res => res.json()).then(async ({ data }) => {
-        if (data.status !== undefined) return response(`Channel was not found `);
-        if (version === 1) {
-            new WebSocket("wss://irc-ws.chat.twitch.tv/").onopen = async function () {
-                await this.send(`PASS oauth:${await readCokie("token")}`);
-                await this.send(`NICK ${await readCokie("login")}`);
-                for (const i of text.value.split("\n")) {
-                    await this.send(`PRIVMSG #${channel.value} :${i}`);
-                }
-                setTimeout(() => {
-                    this.close();
-                }, 5000);
+
+        await fetch(`https://api.twitch.tv/helix/users?login=${channel.value}`, {
+            headers: {
+                "Authorization": `Bearer ${await readCokie("token")}`,
+                "Client-Id": `${await readCokie("clientid")}`
             }
-        }
-        return response(`Successfully sent ${Number(text.value.split("\n").length)} messages in ${String(channel.value)}`);
-    }).catch(error => {
-        console.log(error);
-        return response(`Error: ${error.message}`)
-    });
+        }).then(res => res.json()).then(async ({ data }) => {
+            if (data.status !== undefined) return response(`Channel was not found `);
+            if (version === 1) {
+                new WebSocket("wss://irc-ws.chat.twitch.tv/").onopen = async function () {
+                    await this.send(`PASS oauth:${await readCokie("token")}`);
+                    await this.send(`NICK ${await readCokie("login")}`);
+                    for (const i of text.value.split("\n")) {
+                        await this.send(`PRIVMSG #${channel.value} :${i}`);
+                    }
+                    setTimeout(() => {
+                        this.close();
+                    }, 5000);
+                }
+            }
+            return response(`Successfully sent ${Number(text.value.split("\n").length)} messages in ${String(channel.value)}`);
+        }).catch(error => {
+            console.log(error);
+            return response(`Error: ${error.message}`)
+        });
+    })
 }
