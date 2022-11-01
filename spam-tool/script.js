@@ -1,6 +1,6 @@
 const button = document.getElementById('button');
 
-button.addEventListener(async "click", await send(1));
+button.addEventListener("click", send(1));
 
 const channel = document.getElementById("channel");
 const number = document.getElementById("number");
