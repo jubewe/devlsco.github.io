@@ -92,8 +92,8 @@
         const channelRegEx = new RegExp("^\\w{1,25}$", "");
 
         if (await readCokie("token") === null || await readCokie("login") === null || await readCokie("clientid") === null) {
-            const url = "https://id.twitch.tv/oauth2/authorize?response_type=token&client_id=oja440lzo9ek9ogxnymgtoq3j4m4yq&redirect_uri=https://devlsco.github.io/spam-tool&scope=chat:edit+channel:moderate";
-            return response(`Token OR clientID not found. (Click on <a href="${url}" target="popup" onclick="window.open('${url}','popup','width=600,height=600'); return false;">Login</a> to request a new Token)`);
+            const url = "https://id.twitch.tv/oauth2/authorize?response_type=token&client_id=oja440lzo9ek9ogxnymgtoq3j4m4yq&redirect_uri=https://devlsco.github.io/spam-tool&scope=chat:read+chat:edit+channel:moderate";
+            return response(`Token or clientID not found. (Click on <a href="${url}" target="popup" onclick="window.open('${url}','popup','width=600,height=600'); return false;">Login</a> to request a new Token)`);
         }
 
         if (!channelRegEx.test(String(channel.value))) {
