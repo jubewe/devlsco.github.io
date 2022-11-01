@@ -59,7 +59,7 @@ async function send(version) {
         return await response(`Token or clientID not found. (Click on <a href="${url}">Login</a> to request a new Token)`);
     }
 
-    fetch(`https://id.twitch.tv/oauth2/validate`, {
+    await fetch(`https://id.twitch.tv/oauth2/validate`, {
         headers: {
             "Authorization": `Bearer ${await readCokie("token")}`,
         }
