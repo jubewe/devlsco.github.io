@@ -95,5 +95,5 @@ async function send(version) {
             console.log(error);
             return response(`Error: ${error.message}`)
         });
-    })
+    });
 }

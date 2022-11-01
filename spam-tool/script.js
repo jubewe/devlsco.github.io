@@ -63,48 +63,48 @@ async function send(version) {
         headers: {
             "Authorization": `Bearer ${await readCokie("token")}`,
         }
-    }).then(response => response.json()).then(async (data) => {
-        if(data.status !== undefined) return await response(`Error: ${data.message} | ${data.status}`);
-    })
-    
-    const channelRegEx = new RegExp("^\\w{1,25}$", "");
-    if (!channelRegEx.test(String(channel.value))) {
-        return await response(`Error: Channel must match pattern "${channelRegEx}".`);
-    }
-    const textRegEx = new RegExp("^.{1,450}$", "");
-    if (!textRegEx.test(String(text.value))) {
-        return await response(`Error: Text must match pattern "${textRegEx}".`);
-    }
-    const numberRegEx = new RegExp("^[0-9]+$", "");
-    if (!numberRegEx.test(Number(number.value))) {
-        return await response(`Error: Number must match pattern "${numberRegEx}".`);
-    }
-    if (Number(number.value > 25)) {
-        return await response(`Error: Number maximum. 25`);
-    }
+    }).then(response => response.json()).then(async (dataaaaa) => {
+        if (dataaaaa.status !== undefined) return await response(`Error: ${dataaaaa.message} | ${dataaaaa.status}`);
 
-    await fetch(`https://api.twitch.tv/helix/users?login=${channel.value}`, {
-        headers: {
-            "Authorization": `Bearer ${await readCokie("token")}`,
-            "Client-Id": `${await readCokie("clientid")}`
+        const channelRegEx = new RegExp("^\\w{1,25}$", "");
+        if (!channelRegEx.test(String(channel.value))) {
+            return await response(`Error: Channel must match pattern "${channelRegEx}".`);
         }
-    }).then(res => res.json()).then(async ({ data }) => {
-        if (data.status !== undefined) return response(`Channel was not found `);
-        if (version === 1) {
-            new WebSocket("wss://irc-ws.chat.twitch.tv/").onopen = async function () {
-                await this.send(`PASS oauth:${await readCokie("token")}`);
-                await this.send(`NICK ${await readCokie("login")}`);
-                for (d = 0; d < Number(number.value); d++) {
-                    await this.send(`PRIVMSG #${channel.value} :${text.value}`);
-                }
-                setTimeout(() => {
-                    this.close();
-                }, 5000);
+        const textRegEx = new RegExp("^.{1,450}$", "");
+        if (!textRegEx.test(String(text.value))) {
+            return await response(`Error: Text must match pattern "${textRegEx}".`);
+        }
+        const numberRegEx = new RegExp("^[0-9]+$", "");
+        if (!numberRegEx.test(Number(number.value))) {
+            return await response(`Error: Number must match pattern "${numberRegEx}".`);
+        }
+        if (Number(number.value > 25)) {
+            return await response(`Error: Number maximum. 25`);
+        }
+
+        await fetch(`https://api.twitch.tv/helix/users?login=${channel.value}`, {
+            headers: {
+                "Authorization": `Bearer ${await readCokie("token")}`,
+                "Client-Id": `${await readCokie("clientid")}`
             }
-        }
-        return response(`Successfully sent ${Number(number.value)} messages in ${String(channel.value)} | Message: ${text.value}`);
-    }).catch(error => {
-        console.log(error);
-        return response(`Error: ${error.message}`)
+        }).then(res => res.json()).then(async ({ data }) => {
+            if (data.status !== undefined) return response(`Channel was not found `);
+            if (version === 1) {
+                new WebSocket("wss://irc-ws.chat.twitch.tv/").onopen = async function () {
+                    await this.send(`PASS oauth:${await readCokie("token")}`);
+                    await this.send(`NICK ${await readCokie("login")}`);
+                    for (d = 0; d < Number(number.value); d++) {
+                        await this.send(`PRIVMSG #${channel.value} :${text.value}`);
+                    }
+                    setTimeout(() => {
+                        this.close();
+                    }, 5000);
+                }
+            }
+            return response(`Successfully sent ${Number(number.value)} messages in ${String(channel.value)} | Message: ${text.value}`);
+        }).catch(error => {
+            console.log(error);
+            return response(`Error: ${error.message}`)
+        });
     });
 }

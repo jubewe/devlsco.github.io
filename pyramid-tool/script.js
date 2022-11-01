@@ -67,55 +67,55 @@ async function send(version) {
         headers: {
             "Authorization": `Bearer ${await readCokie("token")}`,
         }
-    }).then(response => response.json()).then(async (data) => {
-        if(data.status !== undefined) return await response(`Error: ${data.message} | ${data.status}`);
-    })
+    }).then(response => response.json()).then(async (dataaaaa) => {
+        if (dataaaaa.status !== undefined) return await response(`Error: ${dataaaaa.message} | ${dataaaaa.status}`);
 
-    const channelRegEx = new RegExp("^\\w{1,25}$", "");
-    if (!channelRegEx.test(String(channel.value))) {
-        return await response(`Error: Channel must match pattern "${channelRegEx}".`);
-    }
-    const textRegEx = new RegExp("^.{1,35}$", "");
-    if (!textRegEx.test(String(text.value))) {
-        return await response(`Error: Text must match pattern "${textRegEx}".`);
-    }
-    const sizeRegEx = new RegExp("^[0-9]+$", "");
-    if (!sizeRegEx.test(Number(size.value))) {
-        return await response(`Error: Size must match pattern "${sizeRegEx}".`);
-    }
-    if (Number(size.value > 25)) {
-        return await response(`Error: Size maximum. 25`);
-    }
-
-    await fetch(`https://api.twitch.tv/helix/users?login=${channel.value}`, {
-        headers: {
-            "Authorization": `Bearer ${await readCokie("token")}`,
-            "Client-Id": `${await readCokie("clientid")}`
+        const channelRegEx = new RegExp("^\\w{1,25}$", "");
+        if (!channelRegEx.test(String(channel.value))) {
+            return await response(`Error: Channel must match pattern "${channelRegEx}".`);
         }
-    }).then(res => res.json()).then(async ({ data }) => {
-        if (data.status !== undefined) return response(`Channel was not found `);
-        if (version === 1) {
-            new WebSocket("wss://irc-ws.chat.twitch.tv/").onopen = async function () {
-                await this.send(`PASS oauth:${await readCokie("token")}`);
-                await this.send(`NICK ${await readCokie("login")}`);
-                const text_ = text.value + " ";
-                for (let i = 1; i <= size.value; i++) {
-                    await this.send(`PRIVMSG #${channel.value} :${text_.repeat(i)}`);
-                    await sleep(100)
-                }
+        const textRegEx = new RegExp("^.{1,35}$", "");
+        if (!textRegEx.test(String(text.value))) {
+            return await response(`Error: Text must match pattern "${textRegEx}".`);
+        }
+        const sizeRegEx = new RegExp("^[0-9]+$", "");
+        if (!sizeRegEx.test(Number(size.value))) {
+            return await response(`Error: Size must match pattern "${sizeRegEx}".`);
+        }
+        if (Number(size.value > 25)) {
+            return await response(`Error: Size maximum. 25`);
+        }
 
-                for (let i = (size.value - 1); i > 0; i--) {
-                    await this.send(`PRIVMSG #${channel.value} :${text_.repeat(i)}`);
-                    await sleep(100)
-                }
-                setTimeout(() => {
-                    this.close();
-                }, 5000);
+        await fetch(`https://api.twitch.tv/helix/users?login=${channel.value}`, {
+            headers: {
+                "Authorization": `Bearer ${await readCokie("token")}`,
+                "Client-Id": `${await readCokie("clientid")}`
             }
-        }
-        return response(`Successfully sent ${Number(size.value)} size length pyramid in ${String(channel.value)}`); 
-    }).catch(error => {
-        console.log(error);
-        return response(`Error: ${error.message}`)
+        }).then(res => res.json()).then(async ({ data }) => {
+            if (data.status !== undefined) return response(`Channel was not found `);
+            if (version === 1) {
+                new WebSocket("wss://irc-ws.chat.twitch.tv/").onopen = async function () {
+                    await this.send(`PASS oauth:${await readCokie("token")}`);
+                    await this.send(`NICK ${await readCokie("login")}`);
+                    const text_ = text.value + " ";
+                    for (let i = 1; i <= size.value; i++) {
+                        await this.send(`PRIVMSG #${channel.value} :${text_.repeat(i)}`);
+                        await sleep(100)
+                    }
+
+                    for (let i = (size.value - 1); i > 0; i--) {
+                        await this.send(`PRIVMSG #${channel.value} :${text_.repeat(i)}`);
+                        await sleep(100)
+                    }
+                    setTimeout(() => {
+                        this.close();
+                    }, 5000);
+                }
+            }
+            return response(`Successfully sent ${Number(size.value)} size length pyramid in ${String(channel.value)}`);
+        }).catch(error => {
+            console.log(error);
+            return response(`Error: ${error.message}`)
+        });
     });
 }
