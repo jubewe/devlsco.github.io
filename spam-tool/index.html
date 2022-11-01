@@ -49,6 +49,8 @@
             await setCookie("login", data.login);
             await setCookie("clientid", data.client_id);
         })
+        const url = document.baseURI.split("#access_token=")
+        window.location.replace(url[0]);
     }
 
     async function readCokie(name) {
