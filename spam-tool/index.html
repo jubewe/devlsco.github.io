@@ -33,15 +33,6 @@
 
     const cooldown = new Map();
 
-    const ws = new WebSocket("wss://irc-ws.chat.twitch.tv/");
-
-    ws.onopen = async function () {
-        await ws.send(`PING`);
-        setInterval(async () => {
-            await ws.send(`PING`);
-        }, 10000);
-    }
-
     function response(text) {
         const response_ = document.getElementById("response");
         if (!text) return `Error: Function response is ${text}`;
@@ -118,10 +109,12 @@
         }).then(res => res.json()).then(async ({ data }) => {
             if (!Number(data.length) === 0) return response(`Channel was not found `);
             if (version === 1) {
-                await ws.send(`PASS oauth:${await readCokie("token")}`);
-                await ws.send(`NICK ${await readCokie("login")}`);
-                for (d = 0; d < Number(number.value); d++) {
-                    await ws.send(`PRIVMSG #${channel.value} :${text.value}`);
+                new WebSocket("wss://irc-ws.chat.twitch.tv/").onopen = async function () {
+                    await this.send(`PASS oauth:${await readCokie("token")}`);
+                    await this.send(`NICK ${await readCokie("login")}`);
+                    for (d = 0; d < Number(number.value); d++) {
+                        await this.send(`PRIVMSG #${channel.value} :${text.value}`);
+                    }
                 }
             }
             return response(`Successfully sent ${Number(number.value)} messages in ${String(channel.value)} | Message: ${text.value}`);
