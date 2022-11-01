@@ -59,7 +59,7 @@ async function send(version) {
 
 
     if (await readCokie("token") === null || await readCokie("login") === null || await readCokie("clientid") === null) {
-        const url = "https://id.twitch.tv/oauth2/authorize?response_type=token&client_id=oja440lzo9ek9ogxnymgtoq3j4m4yq&redirect_uri=https://devlsco.github.io/spam-tool&scope=chat:read+chat:edit+channel:moderate";
+        const url = "https://id.twitch.tv/oauth2/authorize?response_type=token&client_id=oja440lzo9ek9ogxnymgtoq3j4m4yq&redirect_uri=https://devlsco.github.io/pyramid-tool&scope=chat:read+chat:edit+channel:moderate";
         return await response(`Token or clientID not found. (Click on <a href="${url}">Login</a> to request a new Token)`);
     }
 
