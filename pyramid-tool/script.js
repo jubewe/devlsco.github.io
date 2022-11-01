@@ -1,5 +1,5 @@
 const channel = document.getElementById("channel");
-const number = document.getElementById("number");
+const size = document.getElementById("size");
 const text = document.getElementById("text");
 
 const cooldown = new Map();
@@ -46,12 +46,16 @@ async function setCookie(name, value, days) {
     document.cookie = name + "=" + (value || "") + expires + "; path=/";
 }
 
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms))
+}
+
 async function send(version) {
     if (cooldown.has("")) return;
     cooldown.set("", Date.now());
     setTimeout(() => {
         cooldown.delete("");
-    }, 2500);
+    }, 5000);
 
 
     if (await readCokie("token") === null || await readCokie("login") === null || await readCokie("clientid") === null) {
@@ -63,16 +67,16 @@ async function send(version) {
     if (!channelRegEx.test(String(channel.value))) {
         return await response(`Error: Channel must match pattern "${channelRegEx}".`);
     }
-    const textRegEx = new RegExp("^.{1,450}$", "");
+    const textRegEx = new RegExp("^.{1,35}$", "");
     if (!textRegEx.test(String(text.value))) {
         return await response(`Error: Text must match pattern "${textRegEx}".`);
     }
-    const numberRegEx = new RegExp("^[0-9]+$", "");
-    if (!numberRegEx.test(Number(number.value))) {
-        return await response(`Error: Number must match pattern "${numberRegEx}".`);
+    const sizeRegEx = new RegExp("^[0-9]+$", "");
+    if (!sizeRegEx.test(Number(size.value))) {
+        return await response(`Error: Size must match pattern "${sizeRegEx}".`);
     }
-    if (Number(number.value > 25)) {
-        return await response(`Error: Number maximum. 25`);
+    if (Number(size.value > 25)) {
+        return await response(`Error: Size maximum. 25`);
     }
 
     await fetch(`https://api.twitch.tv/helix/users?login=${channel.value}`, {
@@ -86,8 +90,14 @@ async function send(version) {
             new WebSocket("wss://irc-ws.chat.twitch.tv/").onopen = async function () {
                 await this.send(`PASS oauth:${await readCokie("token")}`);
                 await this.send(`NICK ${await readCokie("login")}`);
-                for (d = 0; d < Number(number.value); d++) {
-                    await this.send(`PRIVMSG #${channel.value} :${text.value}`);
+                for (let i = 1; i <= size.value; i++) {
+                    await this.send(`PRIVMSG #${channel.value} :${text.value.repeat(i)}`);
+                    await sleep(100)
+                }
+        
+                for (let i = (size.value - 1); i > 0; i--) {
+                    await this.send(`PRIVMSG #${channel.value} :${text.value.repeat(i)}`);
+                    await sleep(100)
                 }
                 setTimeout(() => {
                     this.close();
