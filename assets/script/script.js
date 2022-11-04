@@ -195,7 +195,7 @@ let Badges = new Map();
             if (i.includes("@badge-info")) {
                 let id = i.split("user-id=")[1].split(";")[0]
                 let color = i.split("color=")[1].split(";")[0]
-                let message = i.split(`PRIVMSG #${channelName}`)[1];
+                let message = i.split(`PRIVMSG #${channelName} :`)[1] || i.split(`PRIVMSG #${channelName} `)[1];
                 let displayName = i.split("display-name=")[1].split(";")[0]
                 let badges = i.split("badges=")[1].split(";")[0].replace(/\/[0-9]+/g, "")
                 let time = Number(i.split("rm-received-ts=")[1].split(";")[0])
@@ -259,6 +259,7 @@ let Badges = new Map();
             let message = event.data.split(`PRIVMSG #${channelName} :`)[1].replace(/</g, " < ").replace(/>/g, " > ");
             let displayName = event.data.split("display-name=")[1].split(";")[0]
             let badges = event.data.split("badges=")[1].split(";")[0].replace(/\/[0-9]+/g, "")
+            let time = Number(event.data.split("tmi-sent-ts=")[1].split(";")[0]);
 
             let TwitchBadges = ``;
 
