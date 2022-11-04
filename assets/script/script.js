@@ -159,7 +159,6 @@ let GlobalFFZ = new Map();
 
 let Badges = new Map();
 
-
 (async () => {
 
     // Channel Emotes
@@ -189,6 +188,69 @@ let Badges = new Map();
         Badges.set("badges", data)
     });
 
+    // recent-messages
+    await fetch(`https://recent-messages.zneix.eu/api/v2/recent-messages/${channelName}`).then(response => response.json()).then(data => {
+        var lol = "";
+        for (const i of data.messages) {
+            if (i.includes("@badge-info")) {
+                let id = i.split("user-id=")[1].split(";")[0]
+                let color = i.split("color=")[1].split(";")[0]
+                let message = i.split(`PRIVMSG #${channelName}`)[1];
+                let displayName = i.split("display-name=")[1].split(";")[0]
+                let badges = i.split("badges=")[1].split(";")[0].replace(/\/[0-9]+/g, "")
+                let time = Number(i.split("rm-received-ts=")[1].split(";")[0])
+
+                let TwitchBadges = ``;
+
+                if(badges !== "") {
+                    for (const i of badges.split(",")) {
+                        TwitchBadges += `<img src="${Badges.get("badges").badge_sets[i].versions[1].image_url_1x}"> `
+                    }
+                }
+    
+                for (const i of SevenTV.get("emotes")) {
+                    message = message.replace(new RegExp(`\\b${i.name}\\b`, "g"), `<img class="emote" src="https://cdn.7tv.app/emote/${i.id}/1x.webp">`);
+                }
+    
+                for (const i of BetterTTV.get("emotes").sharedEmotes) {
+                    message = message.replace(new RegExp(`\\b${i.code}\\b`, "g"), `<img class="emote" src="https://cdn.betterttv.net/emote/${i.id}/1x">`);
+                }
+    
+                for (const i of FFZ.get("emotes").sets[FFZ.get("emotes").room.set].emoticons) {
+                    message = message.replace(new RegExp(`\\b${i.name}\\b`, "g"), `<img class="emote" src="https://cdn.frankerfacez.com/emoticon/${i.id}/1">`);
+                }
+    
+                for (const i of GlobalSevenTV.get("emotes").emotes) {
+                    message = message.replace(new RegExp(`\\b${i.name}\\b`, "g"), `<img class="emote" src="https://cdn.7tv.app/emote/${i.id}/1x.webp">`);
+                }
+    
+                for (const i of GlobalBetterTTV.get("emotes")) {
+                    message = message.replace(new RegExp(`\\b${i.code}\\b`, "g"), `<img class="emote" src="https://cdn.betterttv.net/emote/${i.id}/1x">`);
+                }
+    
+                for (const i of GlobalFFZ.get("emotes").sets["3"].emoticons) {
+                    message = message.replace(new RegExp(`\\b${i.name}\\b`, "g"), `<img class="emote" src="https://cdn.frankerfacez.com/emoticon/${i.id}/1">`);
+                }
+
+                lol +=
+                    `
+                <div>
+                    <div class="inner-chat-message">
+                        <div class="inner-chat-message date">
+                            ${new Date(time).toLocaleString("de-DE", { timeZone: "Europe/Berlin" })}
+                        </div>
+                        <div class="inner-chat-message message badge">${TwitchBadges}</div>
+                        <div  style="color: ${color ? color : "#FFFFFF"};" class="inner-chat-message user">${displayName}: </div>
+                        <div class="inner-chat-message message">${message}</div>
+                    </div>
+                    <p></p>
+                </div>
+            `;
+            }
+        }
+        chat.innerHTML = lol;
+    });
+
     ws.onmessage = async function (event) {
         if (event.data.includes("PRIVMSG")) {
 
@@ -200,8 +262,10 @@ let Badges = new Map();
 
             let TwitchBadges = ``;
 
-            for (const i of badges.split(",")) {
-                TwitchBadges += `<img src="${Badges.get("badges").badge_sets[i].versions[1].image_url_1x}"> `
+            if(badges !== "") {
+                for (const i of badges.split(",")) {
+                    TwitchBadges += `<img src="${Badges.get("badges").badge_sets[i].versions[1].image_url_1x}"> `
+                }
             }
 
             for (const i of SevenTV.get("emotes")) {
