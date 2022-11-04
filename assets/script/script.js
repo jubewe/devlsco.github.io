@@ -202,32 +202,32 @@ let Badges = new Map();
 
                 let TwitchBadges = ``;
 
-                if(badges !== "") {
+                if (badges !== "") {
                     for (const i of badges.split(",")) {
                         TwitchBadges += `<img src="${Badges.get("badges").badge_sets[i].versions[1].image_url_1x}"> `
                     }
                 }
-    
+
                 for (const i of SevenTV.get("emotes")) {
                     message = message.replace(new RegExp(`\\b${i.name}\\b`, "g"), `<img class="emote" src="https://cdn.7tv.app/emote/${i.id}/1x.webp">`);
                 }
-    
+
                 for (const i of BetterTTV.get("emotes").sharedEmotes) {
                     message = message.replace(new RegExp(`\\b${i.code}\\b`, "g"), `<img class="emote" src="https://cdn.betterttv.net/emote/${i.id}/1x">`);
                 }
-    
+
                 for (const i of FFZ.get("emotes").sets[FFZ.get("emotes").room.set].emoticons) {
                     message = message.replace(new RegExp(`\\b${i.name}\\b`, "g"), `<img class="emote" src="https://cdn.frankerfacez.com/emoticon/${i.id}/1">`);
                 }
-    
+
                 for (const i of GlobalSevenTV.get("emotes").emotes) {
                     message = message.replace(new RegExp(`\\b${i.name}\\b`, "g"), `<img class="emote" src="https://cdn.7tv.app/emote/${i.id}/1x.webp">`);
                 }
-    
+
                 for (const i of GlobalBetterTTV.get("emotes")) {
                     message = message.replace(new RegExp(`\\b${i.code}\\b`, "g"), `<img class="emote" src="https://cdn.betterttv.net/emote/${i.id}/1x">`);
                 }
-    
+
                 for (const i of GlobalFFZ.get("emotes").sets["3"].emoticons) {
                     message = message.replace(new RegExp(`\\b${i.name}\\b`, "g"), `<img class="emote" src="https://cdn.frankerfacez.com/emoticon/${i.id}/1">`);
                 }
@@ -262,7 +262,7 @@ let Badges = new Map();
 
             let TwitchBadges = ``;
 
-            if(badges !== "") {
+            if (badges !== "") {
                 for (const i of badges.split(",")) {
                     TwitchBadges += `<img src="${Badges.get("badges").badge_sets[i].versions[1].image_url_1x}"> `
                 }
@@ -297,7 +297,7 @@ let Badges = new Map();
                 <div>
                     <div class="inner-chat-message">
                         <div class="inner-chat-message date">
-                            ${new Date(new Date(new Date()).setHours(new Date().getHours() + 2)).toISOString().replace("T", " ").replace("Z", "").split(".")[0].split(" ")[1]}
+                            ${new Date(time).toLocaleString("de-DE", { timeZone: "Europe/Berlin" })}
                         </div>
                         <div class="inner-chat-message message badge">${TwitchBadges}</div>
                         <div  style="color: ${color ? color : "#FFFFFF"};" class="inner-chat-message user">${displayName}: </div>
