@@ -112,11 +112,6 @@ main div.rainbow {
     color: #15a3a5;
 }
 
-main div.chat {
-    overflow-y: scroll;
-    max-height: 400px;
-}
-
 @keyframes animation {
 
     10% {
@@ -195,4 +190,9 @@ main div.inner-chat-message {
 
 main div.inner-chat-message.badge img {
     border-radius: 3px;
+}
+
+#chat {
+    height: 300px;
+    overflow-y: scroll;
 }

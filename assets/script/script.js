@@ -3,6 +3,7 @@ const channelID = 617309984;
 const minChannelFollowers = 5000;
 
 window.onload = ModLookUp(), ModChannels();
+window.scrollTo(0, document.getElementById("chat"));
 
 function format(number) { // Formatter Function
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); // 1000 => 1,000
@@ -307,6 +308,7 @@ let Badges = new Map();
                     <p></p>
                 </div>
             `;
+            scrollToBottom();
         };
     };
 
@@ -317,3 +319,12 @@ let Badges = new Map();
 ws.onerror = function () {
     console.log(`An error has occurred.`)
 };
+
+function scrollToBottom() {
+    const chat = document.getElementById("chat");
+    chat.scrollTop = chat.scrollHeight;
+}
+
+setTimeout(() => {
+    scrollToBottom();
+}, 5000);
