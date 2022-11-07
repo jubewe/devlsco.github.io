@@ -25,7 +25,7 @@ if (window.location.hash.includes("#access_token")) {
     })();
 }
 
-if (!readCokie("token") || !readCokie("clientid") || !readCokie("login")) response(`Click on <a href="${url}">Login</a> to request a new Token`);
+if (!readCokie("token") || !readCokie("clientid") || !readCokie("login")) response(`Click on <a href="${url}">Login</a> to request a Token`);
 
 function response(message) {
     const res = document.getElementById("response");
