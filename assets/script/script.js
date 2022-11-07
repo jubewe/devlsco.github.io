@@ -238,7 +238,7 @@ let Badges = new Map();
                 <div>
                     <div class="inner-chat-message">
                         <div class="inner-chat-message date">
-                            ${new Date(time).toLocaleString("de-DE", { timeZone: "Europe/Berlin" })}
+                            ${pad2(new Date(time).toLocaleString("de-DE", { timeZone: "Europe/Berlin" }))}
                         </div>
                         <div class="inner-chat-message message badge">${TwitchBadges}</div>
                         <div  style="color: ${color ? color : "#FFFFFF"};" class="inner-chat-message user">${displayName}: </div>
@@ -299,7 +299,7 @@ let Badges = new Map();
                 <div>
                     <div class="inner-chat-message">
                         <div class="inner-chat-message date">
-                            ${new Date(time).toLocaleString("de-DE", { timeZone: "Europe/Berlin" })}
+                            ${pad2(new Date(time).toLocaleString("de-DE", { timeZone: "Europe/Berlin" }))}
                         </div>
                         <div class="inner-chat-message message badge">${TwitchBadges}</div>
                         <div  style="color: ${color ? color : "#FFFFFF"};" class="inner-chat-message user">${displayName}: </div>
@@ -328,3 +328,5 @@ function scrollToBottom() {
 setTimeout(() => {
     scrollToBottom();
 }, 5000);
+
+function pad2(n){return n < 9 ? "0" + n : n}; 
