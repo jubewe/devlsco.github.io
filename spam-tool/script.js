@@ -13,7 +13,7 @@ if (window.location.hash.includes("#access_token")) {
         }).then(response => response.json()).then(async (data) => {
             await setCookie("token", window.location.hash.split("#access_token=")[1].split("&")[0], 365);
             await setCookie("login", data.login, 365);
-            await setCookie("clientid", data.client_id).then(async () => {
+            await setCookie("clientid", data.client_id, 365).then(async () => {
                 const url = document.baseURI.split("#access_token=");
                 await window.location.replace(url[0]);
             })
