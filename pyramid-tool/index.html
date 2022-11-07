@@ -10,55 +10,84 @@
     <link rel="stylesheet" href="./style.css">
 </head>
 
-
 <body>
-    <h1>Pyramid Tool</h1>
-    <input id="channel" type="text" name="Channel" placeholder="channel">
-    <input id="text" type="text" name="Text" placeholder="text">
-    <input id="size" type="number" name="Size" placeholder="size">
-    <button type="button" onclick="send(1)">Send</button>
+    <div class="title">
+        Pyramid Tool
+    </div>
+    <input type="text" name="Channel" id="channel" placeholder="channel">
+    <input type="text" name="Message" id="message" placeholder="message">
+    <input type="number" name="Size" id="size" placeholder="size">
+    <button type="button" id="button">Submit</button>
     <span class="response" id="response"></span>
 
-    <h2>Infos:</h2>
+    <div class="info">
+        Infos:
+    </div>
     <ul>
         <li>
-            Cooldown: 5s
+            <div class="text">
+                Cooldown: 2,5s
+            </div>
         </li>
         <li>
-            Maximum. size in a row: 25
+            <div class="text">
+                Maximum. messages in a row: 25
+            </div>
         </li>
         <li>
-            Check if you are Moderator or Vip in this channel.
+            <div class="text">
+                Check if you are Moderator or Vip in this channel.
+            </div>
         </li>
-        <br>
+    </ul>
+    <div class="info">
+        Rate limits:
+    </div>
+    <ul>
         <li>
-            <h4>Rate limits:</h4>
+            <div class="text">
+                Docs:
+                <a href="http://dev.twitch.tv/docs/irc#rate-limits" target="_blank" rel="noopener noreferrer">
+                    Rate-limits
+                </a>
+            </div>
         </li>
-        <ul>
-            <li>Docs: <a href="https://dev.twitch.tv/docs/irc#rate-limits" target="_blank"
-                    rel="noopener noreferrer">Rate-limits</a> </li>
-            <br>
-            <li>If the user isn’t the channel’s broadcaster or moderator, the bot may send a maximum of 20 messages per
-                30 seconds.</li>
-            <br>
-            <li>If the user is the channel’s broadcaster or moderator, the bot may send a maximum of 100 messages per 30
-                seconds.</li>
-            <br>
-            <li>The bot is limited to sending 7,500 messages per 30 seconds across all channels. This means that the bot
+        <li>
+            <div class="text">
+                If the user isn’t the channel’s broadcaster or moderator, the bot may send a maximum of 20 messages per
+                30 seconds.
+            </div>
+        </li>
+        <li>
+            <div class="text">
+                If the user is the channel’s broadcaster or moderator, the bot may send a maximum of 100 messages per 30
+                seconds.
+            </div>
+        </li>
+        <li>
+            <div class="text">
+                The bot is limited to sending 7,500 messages per 30 seconds across all channels. This means that the bot
                 could send 10 messages per 30 seconds to 750 different channels. However, it couldn’t, for example, send
                 7,500 messages per 30 seconds to a single channel because it would exceed the 20 messages per 30 second
-                limit.</li>
-        </ul>
-        <br>
-        <li>
-            <h4 style="color: red;">Warning:</h4>
+                limit.
+            </div>
         </li>
-        <ul>
-            <li>If you are not a verified bot-account, it's very easy to get a <u>shadow ban</u></li>
-        </ul>
     </ul>
-
-    <script src="./script.js"></script>
+    <div class="info" style="color: red;">
+        Warning:
+    </div>
+    <ul>
+        <li>
+            <div class="text">
+                If you are not a verified bot-account, it's very easy to get a
+                <u>
+                    shadow ban
+                </u>
+            </div>
+        </li>
+    </ul>
 </body>
+
+<script src="./script.js"></script>
 
 </html>
