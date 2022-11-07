@@ -69,7 +69,7 @@ async function run() {
             }
         }).then(response => response.json()).then(async (data) => {
 
-            if (data.status !== undefined) return await response(`Error: ${dataaaaa.message} - Status: ${dataaaaa.status} - [ Click on <a href="${url}">Login</a> to request a new Token ]`);
+            if (data.status !== undefined) return await response(`Error: ${data.message} - Status: ${data.status} - [ Click on <a href="${url}">Login</a> to request a new Token ]`);
 
             const channelRegEx = new RegExp("^\\w{1,25}$", "");
             if (!channelRegEx.test(String(channel))) {
