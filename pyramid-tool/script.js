@@ -104,8 +104,9 @@ async function run() {
                     await this.send(`PASS oauth:${readCokie("token")}`);
                     await this.send(`NICK ${readCokie("login")}`);
                     (async () => {
+                        const message_ = message + " ";
+
                         for (let i = 1; i <= size; i++) {
-                            const message_ = message.+ " ";
                             await this.send(`PRIVMSG #${channel} :${message_.repeat(i)}`);
                             await sleep(100)
                         }
