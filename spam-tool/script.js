@@ -107,7 +107,7 @@ async function run() {
 
                     setTimeout(() => {
                         this.close();
-                    }, 5000);
+                    }, 30000);
                 }
 
                 return response(`Successfully sent ${Number(number)} messages in ${String(channel)} | Message: ${message}`);

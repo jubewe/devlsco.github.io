@@ -119,7 +119,7 @@ async function run() {
 
                     setTimeout(() => {
                         this.close();
-                    }, 5000);
+                    }, 30000);
                 }
 
                 return response(`Successfully sent a ${Number(size)} size length Pyramid in #${String(channel)}`);
