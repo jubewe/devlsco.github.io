@@ -52,7 +52,6 @@ async function setCookie(name, value, days) {
 async function run() {
     const channel = document.getElementById("channel").value;
     const message = document.getElementById("message").value;
-    const number = document.getElementById("number").value;
 
     if (await !readCokie("token") || await !readCokie("clientid") || await !readCokie("login")) return;
 
