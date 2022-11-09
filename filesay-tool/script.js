@@ -89,7 +89,7 @@ async function run() {
                     await this.send(`NICK ${readCokie("login")}`);
                     (async () => {
                         for (const i of message.split("\n")) {
-                            await this.send(`PRIVMSG #${channel} :${message}`);
+                            await this.send(`PRIVMSG #${channel} :${i}`);
                         }
                     })();
 
@@ -98,7 +98,7 @@ async function run() {
                     }, 5000);
                 }
 
-                return response(`Successfully sent ${Number(message.split("\n").length)} messages in ${String(channel)} | Message: ${message}`);
+                return response(`Successfully sent ${Number(message.split("\n").length)} messages in ${String(channel)}`);
 
             }).catch(error => {
                 console.log(error);
