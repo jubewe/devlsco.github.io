@@ -50,9 +50,9 @@ async function setCookie(name, value, days) {
 }
 
 async function run() {
-    const channel = document.getElementById("channel").value;
-    const message = document.getElementById("message").value;
-    const number = document.getElementById("number").value;
+    const channel = document.getElementById("channel").value.replace(/</g, "&#60;").replace(/>/g, "&#62;");;
+    const message = document.getElementById("message").value.replace(/</g, "&#60;").replace(/>/g, "&#62;");;
+    const number = document.getElementById("number").value.replace(/</g, "&#60;").replace(/>/g, "&#62;");;
 
     if (await !readCokie("token") || await !readCokie("clientid") || await !readCokie("login")) return;
 
