@@ -54,9 +54,9 @@ function sleep(ms) {
 }
 
 async function run() {
-    const channel = document.getElementById("channel").value.replace(/</g, "&#60;").replace(/>/g, "&#62;");;
-    const message = document.getElementById("message").value.replace(/</g, "&#60;").replace(/>/g, "&#62;");;
-    const size = document.getElementById("size").value.replace(/</g, "&#60;").replace(/>/g, "&#62;");;
+    const channel = document.getElementById("channel").value;
+    const message = document.getElementById("message").value;
+    const size = document.getElementById("size").value;
 
     if (await !readCokie("token") || await !readCokie("clientid") || await !readCokie("login")) return;
 
@@ -122,7 +122,7 @@ async function run() {
                     }, 30000);
                 }
 
-                return response(`Successfully sent a ${Number(size)} size length Pyramid in #${String(channel)}`);
+                return response(`Successfully sent a ${Number(size.replace(/</g, "&#60;").replace(/>/g, "&#62;"))} size length Pyramid in #${String(channel.replace(/</g, "&#60;").replace(/>/g, "&#62;"))}`);
 
             }).catch(error => {
                 console.log(error);

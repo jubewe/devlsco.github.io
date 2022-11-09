@@ -50,8 +50,8 @@ async function setCookie(name, value, days) {
 }
 
 async function run() {
-    const channel = document.getElementById("channel").value.replace(/</g, "&#60;").replace(/>/g, "&#62;");;
-    const message = document.getElementById("message").value.replace(/</g, "&#60;").replace(/>/g, "&#62;");
+    const channel = document.getElementById("channel").value;
+    const message = document.getElementById("message").value;
 
     if (await !readCokie("token") || await !readCokie("clientid") || await !readCokie("login")) return;
 
@@ -98,7 +98,7 @@ async function run() {
                     }, 30000);
                 }
 
-                return response(`Successfully sent ${Number(message.split("\n").length)} messages in ${String(channel)}`);
+                return response(`Successfully sent ${Number(message.replace(/</g, "&#60;").replace(/>/g, "&#62;").split("\n").length)} messages in ${String(channel.replace(/</g, "&#60;").replace(/>/g, "&#62;"))}`);
 
             }).catch(error => {
                 console.log(error);
