@@ -45,7 +45,8 @@ a {
 }
 
 
-div.title, div.info {
+div.title,
+div.info {
     font-size: 20px;
     margin: 20px;
     margin-left: 2%;
@@ -67,4 +68,8 @@ div.text {
 
 span.response {
     padding: 6%;
+}
+
+.lol {
+    size: 40 !important;
 }
