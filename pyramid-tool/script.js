@@ -87,8 +87,8 @@ async function run() {
             if (!sizeRegEx.test(Number(size))) {
                 return await response(`[ Error: Size must match pattern "${sizeRegEx}". ]`);
             }
-            if (Number(size > 25)) {
-                return await response(`[ Error: Size maximum. 25 ]`);
+            if (Number(size > 50)) {
+                return await response(`[ Error: Size maximum. 50 ]`);
             }
 
             await fetch(`https://api.twitch.tv/helix/users?login=${channel}`, {
