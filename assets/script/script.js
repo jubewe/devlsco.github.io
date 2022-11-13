@@ -323,5 +323,5 @@ ws.onerror = function () {
 
 function scrollToBottom() {
     const chat = document.getElementById("chat");
-    chat.scrollTop = chat.scrollHeight;
+    chat.scrollTop = chat.scrollHeight + 1000;
 }
