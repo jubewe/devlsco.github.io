@@ -193,6 +193,7 @@ main div.inner-chat-message.badge img {
 }
 
 #chat {
+    padding-bottom: 20px;
     height: 300px;
     overflow-y: scroll;
 }
