@@ -234,11 +234,11 @@ let Badges = new Map();
                 }
 
                 lol +=
-                    `
+                `
                 <div>
                     <div class="inner-chat-message">
                         <div class="inner-chat-message date">
-                            ${pad2(new Date(time).toLocaleString("de-DE", { timeZone: "Europe/Berlin" }))}
+                            ${new Date(time).toLocaleString("de-DE", { timeZone: "Europe/Berlin" })}
                         </div>
                         <div class="inner-chat-message message badge">${TwitchBadges}</div>
                         <div  style="color: ${color ? color : "#FFFFFF"};" class="inner-chat-message user">${displayName}: </div>
@@ -250,6 +250,7 @@ let Badges = new Map();
             }
         }
         chat.innerHTML = lol;
+        scrollToBottom();
     });
 
     ws.onmessage = async function (event) {
@@ -295,11 +296,11 @@ let Badges = new Map();
             }
 
             chat.innerHTML +=
-                `
+            `
                 <div>
                     <div class="inner-chat-message">
                         <div class="inner-chat-message date">
-                            ${pad2(new Date(time).toLocaleString("de-DE", { timeZone: "Europe/Berlin" }))}
+                            ${new Date(time).toLocaleString("de-DE", { timeZone: "Europe/Berlin" })}
                         </div>
                         <div class="inner-chat-message message badge">${TwitchBadges}</div>
                         <div  style="color: ${color ? color : "#FFFFFF"};" class="inner-chat-message user">${displayName}: </div>
@@ -307,8 +308,8 @@ let Badges = new Map();
                     </div>
                     <p></p>
                 </div>
-            `;
-            scrollToBottom();
+                `;
+                scrollToBottom();
         };
     };
 
@@ -324,9 +325,3 @@ function scrollToBottom() {
     const chat = document.getElementById("chat");
     chat.scrollTop = chat.scrollHeight;
 }
-
-setTimeout(() => {
-    scrollToBottom();
-}, 5000);
-
-function pad2(n){return n < 9 ? "0" + n : n}; 
