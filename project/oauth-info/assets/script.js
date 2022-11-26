@@ -4,7 +4,7 @@ async function validierung() {
     const token = document.getElementById("oauth-token").value.replace(/oauth[:]/i, "");
     const response = document.getElementById("response");
 
-    const let = {
+    let options = {
         method: 'GET',
         headers: {
             'Authorization': 'OAuth ' + token
