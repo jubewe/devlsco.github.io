@@ -16,7 +16,7 @@ window.onload = async function () {
         await fetch("https://id.twitch.tv/oauth2/validate", options)
             .then(res => res.json())
             .then(result => {
-                if (result.status) return response.innerHTML = `<div class="text"><img src="https://cdn.7tv.app/emote/63071bb9464de28875c52531/1x" alt="FeelsDankMan" width="30">Error: ${result.message} &#8658; [ <a href="${url}" target="_blank" rel="noopener noreferrer">Request a new Token</a> ]</div>`;
+                if (result.status) return response.innerHTML = `<div class="text"><img src="https://cdn.7tv.app/emote/63071bb9464de28875c52531/1x" alt="FeelsDankMan" width="30">Error: ${result.message} &#8658; [ <a href="${url}" target="_self" rel="noopener noreferrer">Request a new Token</a> ]</div>`;
 
                 new Promise(async (resolve) => {
                     await setCookie("access_login", String(result.login), 365);
@@ -45,7 +45,7 @@ async function send() {
     const number = document.getElementById("number").value;
     const text = document.getElementById("text").value;
 
-    if (!(await readCokie("access_login") || await readCokie("access_token") || await readCokie("access_client_id"))) return response.innerHTML = `<div class="text"><img src="https://cdn.frankerfacez.com/emote/250522/1" alt="FeelsOkayMan" width="30"><a href="${url}" target="_blank" rel="noopener noreferrer">Please login</a> </div>`;
+    if (!(await readCokie("access_login") || await readCokie("access_token") || await readCokie("access_client_id"))) return response.innerHTML = `<div class="text"><img src="https://cdn.frankerfacez.com/emote/250522/1" alt="FeelsOkayMan" width="30"><a href="${url}" target="_self" rel="noopener noreferrer">Please login</a> </div>`;
 
     const options = {
         method: 'GET',
