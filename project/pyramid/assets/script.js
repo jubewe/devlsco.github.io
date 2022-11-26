@@ -57,7 +57,7 @@ async function send() {
     await fetch("https://id.twitch.tv/oauth2/validate", options)
         .then(res => res.json())
         .then(async result => {
-            if (result.status) return response.innerHTML = `<div class="text"><img src="https://cdn.7tv.app/emote/63071bb9464de28875c52531/1x" alt="FeelsDankMan" width="30">Error: ${result.message}</div>`;
+            if (result.status) return response.innerHTML = `<div class="text"><img src="https://cdn.7tv.app/emote/63071bb9464de28875c52531/1x" alt="FeelsDankMan" width="30">Error: ${result.message} &#8658; [ <a href="${url}" target="_self" rel="noopener noreferrer">Request a new Token</a> ]</div>`;
 
             const channelRegEx = new RegExp("^\\w{1,25}$", "");
             const sizeRegEx = new RegExp("^[0-9]+$", "");
