@@ -68,6 +68,10 @@ body main div.bilder div.bild img {
     height: 800px;
 }
 
+body main div.bilder div.bild img:hover {
+    cursor: zoom-in;
+}
+
 body main div.bilder div.text {
     margin: 30px auto;
     width: 50%;
