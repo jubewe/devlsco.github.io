@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatty Settings</title>
+
+    <link href="./assets/styles.css" rel="stylesheet" />
+    <script src="./assets/script.js" defer></script>
+</head>
+
+<body>
+    <header>
+        <div class="text">Welcome,</div>
+        <p>to my <a href="https://chatty.github.io/" target="_blank" rel="noopener noreferrer">Chatty Settings</a> Page!
+        </p>
+        <div class="title">Information</div>
+        <ul>
+            <li>Last Update: xx.xx.xxx</li>
+        </ul>
+        <div class="title">Settings</div>
+    </header>
+    <main>
+        <div class="bilder">
+            <h3>Main</h3>
+            <div class="bild"><img src="./assets/img/chatty_main.png" alt="bild"></div>
+            <h3>Look</h3>
+            <div class="bild"><img src="./assets/img/chatty_look.png" alt="bild"></div>
+            <h3>Chat. Colors</h3>
+            <div class="bild"><img src="./assets/img/chatty_chat_colors.png" alt="bild"></div>
+            <h3>Msg. Colors</h3>
+            <div class="bild"><img src="./assets/img/chatty_msg_colors.png" alt="bild"></div>
+
+            <div class="text">White,1,#012929,1,config:t|first-msg=1<br><br>#009999,1,Black,0,config:info
+                start:[Info]<br><br>White,1,#990099,0,config:info start:[Points]<br><br>White,1,#330033,1,config:info
+                start:[AutoMod]<br><br>White,1,#003165,1,config:info
+                start:[ModAction]<br><br>#00AABC,1,#333333,0,config:info
+                start:[Notification]<br><br>White,1,#5E5151,1,config:info start:[Announcement]</div>
+            <h3>Usercolors</h3>
+            <div class="bild"><img src="./assets/img/chatty_usercolors.png" alt="bild"></div>
+            <h3>Badges</h3>
+            <div class="bild"><img src="./assets/img/chatty_badges.png" alt="bild"></div>
+            <h3>Emoticons</h3>
+            <div class="bild"><img src="./assets/img/chatty_emoticons.png" alt="bild"></div>
+            <h3>Fonts</h3>
+            <div class="bild"><img src="./assets/img/chatty_fonts.png" alt="bild"></div>
+            <h3>Chat</h3>
+            <div class="bild"><img src="./assets/img/chatty_chat.png" alt="bild"></div>
+            <h3>Messages</h3>
+            <div class="bild"><img src="./assets/img/chatty_messages.png" alt="bild"></div>
+            <h3>Moderation</h3>
+            <div class="bild"><img src="./assets/img/chatty_moderation.png" alt="bild"></div>
+            <h3>Names</h3>
+            <div class="bild"><img src="./assets/img/chatty_names.png" alt="bild"></div>
+            <h3>Highlight</h3>
+            <div class="bild"><img src="./assets/img/chatty_highlight.png" alt="bild"></div>
+            <h3>Ignore</h3>
+            <div class="bild"><img src="./assets/img/chatty_ignore.png" alt="bild"></div>
+            <h3>Filter</h3>
+            <div class="bild"><img src="./assets/img/chatty_filter.png" alt="bild"></div>
+            <h3>Log to file</h3>
+            <div class="bild"><img src="./assets/img/chatty_log_to_file.png" alt="bild"></div>
+            <h3>Windows</h3>
+            <div class="bild"><img src="./assets/img/chatty_window.png" alt="bild"></div>
+            <h3>Tabs</h3>
+            <div class="bild"><img src="./assets/img/chatty_tabs.png" alt="bild"></div>
+            <h3>Notifications</h3>
+            <div class="bild"><img src="./assets/img/chatty_notifications.png" alt="bild"></div>
+            <h3>Live Streams</h3>
+            <div class="bild"><img src="./assets/img/chatty_live_streams.png" alt="bild"></div>
+            <h3>Other</h3>
+            <div class="bild"><img src="./assets/img/chatty_other.png" alt="bild"></div>
+            <h3>Commands</h3>
+            <div class="bild"><img src="./assets/img/chatty_commands.png" alt="bild"></div>
+            <h4>Custom Commands</h4>
+            <div class="text">
+                /bot /ban $$1 Likely Bot.<br><br>
+                /rp /timeout $$1 600 Kein Backseat/Meta Gaming<br><br>
+                /spoiler /timeout $$1 600 Spoilers / Backseat Gaming<br><br>
+                /german /timeout $$1 600 German/English only, please<br><br>
+                /english /timeout $$1 600 English only, please<br><br>
+                /repeating /timeout $$1 120 Stop repeating yourself<br><br>
+                /spam /timeout $$1 60 Stop spamming<br><br>
+                /promotion /ban $$1 Promotion/Advertising<br><br>
+                /nuke !anuke $$input(Timeout Seconds Scrollback?) $$input(Timeout Seconds Radiation?) $$input(Timeout
+                Length [-1 = delete; 0 = ban; 1 = 1s;]) $(1-) -r $$input(Reason?)<br><br>
+                /nuke_copy /chain /copy !anuke $$input(Timeout Seconds Scrollback?) $$input(Timeout Seconds Radiation?)
+                $$input(Timeout Length [-1 = delete; 0 = ban; 1 = 1s;]) $(1-) -r $$input(Reason?) |/echo Check your
+                clipboard.<br><br>
+                /nuke_raw /echo [Info] !anuke $$input(Timeout Seconds Scrollback?) $$input(Timeout Seconds Radiation?)
+                $$input(Timeout Length [-1 = delete; 0 = ban; 1 = 1s;]) $(1-) -r $$input(Reason?)<br><br>
+                /undonuke !undonuke $$input(Nuke ID)<br><br>
+                /report /openUrl https://twitch.tv/$$1/report<br><br>
+                /card /openUrl https://www.twitch.tv/popout/$(chan)/viewercard/$$1<br><br>
+                /remotes /chain /refresh ffz|/refresh ffzglobal|/refresh bttvemotes|/refresh emoticons |/refresh badges
+                |/refresh 7tv<br><br>
+                /clearcache /chain /clearUserMessages |/clearStreamChat |/clearimagecache |/clearemotecache<br><br>
+                /translate /openUrl
+                https://translate.google.com/#view=home&op=translate&sl=auto&tl=de&text=$$urlencode($(msg))<br><br>
+            </div>
+
+            <h4>Channel Context Menu</h4>
+            <div class="text">
+                -<br><br>
+                @Twitch Dashboard<br><br>
+                .Dashboard=/openUrl https://dashboard.twitch.tv/u/$(chan)/stream-manager<br><br>
+                .Moderation=/openUrl https://dashboard.twitch.tv/u/$(chan)/settings/moderation<br><br>
+                @Twitch Moderation<br><br>
+                .Predictions=/openUrl https://www.twitch.tv/popout/$(chan)/predictions<br><br>
+                .Channel Points=/openUrl https://www.twitch.tv/popout/moderator/$(chan)/reward-queue<br><br>
+                .-<br><br>
+                .Ban Appeals=/openUrl https://www.twitch.tv/popout/moderator/$(chan)/unban_requests<br><br>
+                @Fossabot Dashboard<br><br>
+                .Dashboard=/openUrl https://fossa.bot/c/$(chan)/dashboard<br><br>
+                .Commands=/openUrl https://fossa.bot/c/$(chan)/commands/custom<br><br>
+                .Blocked Terms=/openUrl https://fossa.bot/c/$(chan)/blocked-terms<br><br>
+                -<br><br>
+                @!setgame<br><br>
+                .Just Chatting=!setgame Just Chatting<br><br>
+                .Grand Theft Auto V=!setgame Grand Theft Auto V<br><br>
+                .Minecraft=!setgame Minecraft<br><br>
+                !settitle=!settitle $$input(Title)<br><br>
+                -<br><br>
+                Refresh Emotes=/remotes<br><br>
+            </div>
+            <h4>User Context Menu</h4>
+            <div class="text">
+                -<br><br>
+                .R Reply[R]=/msgreply $$input(Reply to $(nick))<br><br>
+                .E Ping User[E]=/insertword @$(nick)<br><br>
+            </div>
+            <h4>User Dialog Buttons</h4>
+            <div class="text">
+                @a1<br><br>
+                Delete[D]=/delete $(msg-id)<br><br>
+                1s[1], 30s[Q], 1m[2], 2m[E], 10m[W], 1h[4], 1d[5], 7d[6], 14d[7]<br><br>
+                @a2<br><br>
+                ./RP[A]<br><br>
+                ./Spoiler[ctrl+A]<br><br>
+                ./German[G]<br><br>
+                ./Promotion[F]<br><br>
+                ./Repeating[R]<br><br>
+                ./Spam[S]<br><br>
+                @a3<br><br>
+                ./Ban[B]<br><br>
+                ./UnBan[U]<br><br>
+                @c2<br><br>
+                ./Report<br><br>
+                ./Card<br><br>
+                .Translate[T]=/translate $(msg)<br><br>
+                @b1<br><br>
+                ./Bot[ctrl+B]<br><br>
+                @AutoMod<br><br>
+                .Approve=/Automod_approve<br><br>
+                .Deny=/Automod_deny<br><br>
+            </div>
+            <h3>Advenced</h3>
+            <div class="bild"><img src="./assets/img/chatty_advenced.png" alt="bild"></div>
+            <h3>Tab Completion</h3>
+            <div class="bild"><img src="./assets/img/chatty_tab_completion.png" alt="bild"></div>
+            <h3>History</h3>
+            <div class="bild"><img src="./assets/img/chatty_history.png" alt="bild"></div>
+            <h3>Stream Highlights</h3>
+            <div class="bild"><img src="./assets/img/chatty_stream_highlights.png" alt="bild"></div>
+            <h3>Hotkeys</h3>
+            <div class="bild"><img src="./assets/img/chatty_hotkeys.png" alt="bild"></div>
+        </div>
+    </main>
+</body>
+
+</html>
