@@ -29,12 +29,6 @@ body a:hover {
     text-decoration-color: var(--text-color)
 }
 
-body main div.title {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-top: 2rem;
-}
-
 body main div.text {
     font-size: 1.5rem;
     font-weight: bold;
