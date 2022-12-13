@@ -1,8 +1,8 @@
 const button = document.getElementById("button");
+const response = document.getElementById("response");
 
-async function revorking() {
+async function revoking() {
     const token = document.getElementById("oauth-token").value.replace(/oauth[:]/i, "");
-    const response = document.getElementById("response");
 
     let options = {
         method: 'GET',
@@ -28,4 +28,4 @@ async function revorking() {
         });
 }
 
-button.addEventListener("click", revorking);
+button.addEventListener("click", revoking);
